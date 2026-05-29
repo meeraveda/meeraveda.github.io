@@ -3,475 +3,385 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meera Veda — Rooted in Wisdom, Radiant in Life</title>
-<meta name="description" content="A wellness journal on health, spirit, and the gentle art of living well.">
+<title>Meera Veda — The Journal</title>
+<meta name="description" content="Reflections on healing, womanhood, awareness — and the gentle art of living well.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f4ecdc;
-    --paper: #faf5e8;
-    --ink: #2a221a;
-    --ink-soft: #4a4138;
-    --muted: #9a8e7a;
-    --line: #d9cfb8;
-    --gold: #b89968;
-    --gold-deep: #8a6f3e;
-    --health: #6b8e5a;
-    --wellbeing: #c4624a;
-    --spirituality: #8b6fb0;
-    --ranting: #c89a3a;
-    --gratitude: #d4a574;
-    --dreams: #5e8aa8;
-    --relationships: #b85c7e;
-    --random: #6b6b6b;
-    --shadow-sm: 0 1px 2px rgba(31,26,20,0.04);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Fraunces', Georgia, serif;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-  body {
-    background-image:
-      radial-gradient(at 15% 10%, rgba(184,153,104,0.06) 0%, transparent 50%),
-      radial-gradient(at 85% 90%, rgba(168,66,58,0.04) 0%, transparent 50%);
-  }
-  .hero {
-    position: relative;
-    width: 100%;
-    height: 85vh;
-    min-height: 540px;
-    max-height: 820px;
-    overflow: hidden;
-  }
-  .hero-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 25%;
-  }
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(42,34,26,0.15) 0%, rgba(42,34,26,0) 35%, rgba(244,236,220,0.4) 85%, var(--bg) 100%);
-  }
-  .hero-content {
-    position: absolute;
-    left: 6%;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #faf5e8;
-    max-width: 380px;
-    z-index: 2;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
-  }
-  .hero-ornament {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 36px;
-    color: var(--gold);
-    margin-bottom: 16px;
-    line-height: 1;
-  }
-  .hero-ornament::before { content: "❦"; }
-  .hero-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(40px, 7vw, 64px);
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    line-height: 1;
-    margin-bottom: 18px;
-    text-transform: uppercase;
-  }
-  .hero-role {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    opacity: 0.95;
-  }
-  .hero-divider {
-    width: 40px;
-    height: 1px;
-    background: var(--gold);
-    margin: 18px 0;
-    opacity: 0.9;
-  }
-  .hero-tagline {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(16px, 2.4vw, 20px);
-    font-style: italic;
-    font-weight: 400;
-    line-height: 1.5;
-    letter-spacing: 0.05em;
-    opacity: 0.95;
-  }
-  @media (max-width: 640px) {
-    .hero { height: 75vh; min-height: 480px; }
-    .hero-content {
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      max-width: 90%;
-    }
-    .hero-divider { margin: 18px auto; }
-  }
-  main.container {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 16px 80px;
-  }
-  .intro {
-    text-align: center;
-    margin: -40px auto 32px;
-    max-width: 540px;
-    position: relative;
-    z-index: 3;
-  }
-  .intro-mark {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold-deep);
-    margin-bottom: 14px;
-  }
-  .intro p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 19px;
-    font-style: italic;
-    color: var(--ink-soft);
-    line-height: 1.6;
-  }
-  .divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    margin: 48px auto 32px;
-    color: var(--gold-deep);
-  }
-  .divider::before, .divider::after {
-    content: "";
-    height: 1px;
-    width: 60px;
-    background: var(--gold);
-    opacity: 0.4;
-  }
-  .divider span {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-  }
-  .filters {
-    display: flex;
-    gap: 2px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 36px;
-  }
-  .filter-btn {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    padding: 8px 12px;
-    background: transparent;
-    border: none;
-    color: var(--muted);
-    cursor: pointer;
-    transition: color 0.2s;
-    position: relative;
-  }
-  .filter-btn:hover { color: var(--ink); }
-  .filter-btn.active { color: var(--ink); }
-  .filter-btn.active::after {
-    content: "";
-    position: absolute;
-    bottom: 2px; left: 12px; right: 12px;
-    height: 1px;
-    background: var(--gold-deep);
-  }
-  .filter-btn .count { margin-left: 4px; opacity: 0.5; }
-  .posts { display: flex; flex-direction: column; gap: 24px; }
-  .post {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 28px 30px;
-    box-shadow: var(--shadow-sm);
-    position: relative;
-    overflow: hidden;
-    animation: fadeIn 0.4s ease;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .post::before {
-    content: "";
-    position: absolute;
-    top: 0; bottom: 0; left: 0;
-    width: 3px;
-    background: var(--muted);
-  }
-  .post[data-cat="health"]::before        { background: var(--health); }
-  .post[data-cat="wellbeing"]::before     { background: var(--wellbeing); }
-  .post[data-cat="spirituality"]::before  { background: var(--spirituality); }
-  .post[data-cat="ranting"]::before       { background: var(--ranting); }
-  .post[data-cat="gratitude"]::before     { background: var(--gratitude); }
-  .post[data-cat="dreams"]::before        { background: var(--dreams); }
-  .post[data-cat="relationships"]::before { background: var(--relationships); }
-  .post[data-cat="random"]::before        { background: var(--random); }
-  .post-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-    gap: 12px;
-  }
-  .post-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
-  }
-  .post[data-cat="health"] .post-tag        { color: var(--health); }
-  .post[data-cat="wellbeing"] .post-tag     { color: var(--wellbeing); }
-  .post[data-cat="spirituality"] .post-tag  { color: var(--spirituality); }
-  .post[data-cat="ranting"] .post-tag       { color: var(--ranting); }
-  .post[data-cat="gratitude"] .post-tag     { color: var(--gratitude); }
-  .post[data-cat="dreams"] .post-tag        { color: var(--dreams); }
-  .post[data-cat="relationships"] .post-tag { color: var(--relationships); }
-  .post[data-cat="random"] .post-tag        { color: var(--random); }
-  .post-date {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-  }
-  .post-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(24px, 4vw, 30px);
-    font-weight: 500;
-    line-height: 1.25;
-    margin-bottom: 14px;
-    color: var(--ink);
-  }
-  .post-body {
-    font-size: 16px;
-    line-height: 1.75;
-    color: var(--ink-soft);
-  }
-  .post-body p { margin-bottom: 14px; }
-  .post-body p:last-child { margin-bottom: 0; }
-  .post-body em { color: var(--ink); }
-  .post-body strong { color: var(--ink); font-weight: 600; }
-  .post-body blockquote {
-    margin: 18px 0;
-    padding: 4px 0 4px 18px;
-    border-left: 2px solid var(--gold);
-    font-style: italic;
-    color: var(--ink);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-  }
-  .empty {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--muted);
-  }
-  .empty .ornament {
-    font-size: 28px;
-    color: var(--gold);
-    font-family: 'Cormorant Garamond', serif;
-    margin-bottom: 12px;
-    display: block;
-  }
-  .empty p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-style: italic;
-    line-height: 1.6;
-  }
-  footer {
-    margin-top: 80px;
-    text-align: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.15em;
-    line-height: 1.8;
-  }
-  footer .ornament { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 14px; }
-  footer .disclosure {
-    margin-top: 14px;
-    font-size: 9px;
-    opacity: 0.7;
-    letter-spacing: 0.1em;
-  }
-  @media (max-width: 480px) {
-    .post { padding: 22px 20px; }
-    .filter-btn { font-size: 9px; padding: 7px 10px; }
-  }
+:root {
+--bg: #f4ecdc;
+--paper: #faf5e8;
+--ink: #2a221a;
+--ink-soft: #4a4138;
+--muted: #9a8e7a;
+--line: #d9cfb8;
+--gold: #b89968;
+--gold-deep: #8a6f3e;
+--health: #6b8e5a;
+--wellbeing: #c4624a;
+--spirituality: #8b6fb0;
+--ranting: #c89a3a;
+--gratitude: #d4a574;
+--dreams: #5e8aa8;
+--relationships: #b85c7e;
+--random: #6b6b6b;
+--shadow-sm: 0 1px 2px rgba(31,26,20,0.04);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+background: var(--bg);
+color: var(--ink);
+font-family: 'Fraunces', Georgia, serif;
+min-height: 100vh;
+-webkit-font-smoothing: antialiased;
+}
+body {
+background-image:
+radial-gradient(at 15% 10%, rgba(184,153,104,0.06) 0%, transparent 50%),
+radial-gradient(at 85% 90%, rgba(168,66,58,0.04) 0%, transparent 50%);
+padding: 32px 16px 80px;
+}
+nav.top {
+max-width: 720px;
+margin: 0 auto 32px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 8px;
+}
+nav.top .mark {
+font-family: 'Cormorant Garamond', serif;
+font-size: 20px;
+letter-spacing: 0.15em;
+color: var(--ink);
+text-transform: uppercase;
+font-weight: 500;
+}
+nav.top .mark .ornament { color: var(--gold); margin: 0 4px; }
+nav.top a.about-link {
+font-family: 'JetBrains Mono', monospace;
+font-size: 10px;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(--muted);
+text-decoration: none;
+transition: color 0.2s;
+}
+nav.top a.about-link:hover { color: var(--ink); }
+main.container {
+max-width: 720px;
+margin: 0 auto;
+}
+header.site {
+text-align: center;
+margin-bottom: 32px;
+}
+.ornament-top {
+font-family: 'Cormorant Garamond', serif;
+font-size: 26px;
+color: var(--gold);
+margin-bottom: 16px;
+}
+h1.site-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: clamp(40px, 8vw, 58px);
+font-weight: 400;
+letter-spacing: 0.18em;
+line-height: 1;
+color: var(--ink);
+margin-bottom: 14px;
+text-transform: uppercase;
+}
+.site-tagline {
+font-family: 'Cormorant Garamond', serif;
+font-style: italic;
+font-size: clamp(16px, 2.4vw, 19px);
+color: var(--ink-soft);
+line-height: 1.5;
+max-width: 420px;
+margin: 0 auto;
+}
+.divider {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 14px;
+margin: 40px auto 28px;
+color: var(--gold-deep);
+}
+.divider::before, .divider::after {
+content: "";
+height: 1px;
+width: 60px;
+background: var(--gold);
+opacity: 0.4;
+}
+.divider span {
+font-family: 'JetBrains Mono', monospace;
+font-size: 9px;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+}
+.filters {
+display: flex;
+gap: 2px;
+flex-wrap: wrap;
+justify-content: center;
+margin-bottom: 36px;
+}
+.filter-btn {
+font-family: 'JetBrains Mono', monospace;
+font-size: 10px;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+padding: 8px 12px;
+background: transparent;
+border: none;
+color: var(--muted);
+cursor: pointer;
+transition: color 0.2s;
+position: relative;
+}
+.filter-btn:hover { color: var(--ink); }
+.filter-btn.active { color: var(--ink); }
+.filter-btn.active::after {
+content: "";
+position: absolute;
+bottom: 2px; left: 12px; right: 12px;
+height: 1px;
+background: var(--gold-deep);
+}
+.filter-btn .count { margin-left: 4px; opacity: 0.5; }
+.posts { display: flex; flex-direction: column; gap: 24px; }
+.post {
+background: var(--paper);
+border: 1px solid var(--line);
+border-radius: 4px;
+padding: 28px 30px;
+box-shadow: var(--shadow-sm);
+position: relative;
+overflow: hidden;
+animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.post::before {
+content: "";
+position: absolute;
+top: 0; bottom: 0; left: 0;
+width: 3px;
+background: var(--muted);
+}
+.post[data-cat="health"]::before { background: var(--health); }
+.post[data-cat="wellbeing"]::before { background: var(--wellbeing); }
+.post[data-cat="spirituality"]::before { background: var(--spirituality); }
+.post[data-cat="ranting"]::before { background: var(--ranting); }
+.post[data-cat="gratitude"]::before { background: var(--gratitude); }
+.post[data-cat="dreams"]::before { background: var(--dreams); }
+.post[data-cat="relationships"]::before { background: var(--relationships); }
+.post[data-cat="random"]::before { background: var(--random); }
+.post-meta {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 12px;
+gap: 12px;
+}
+.post-tag {
+font-family: 'JetBrains Mono', monospace;
+font-size: 10px;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 500;
+}
+.post[data-cat="health"] .post-tag { color: var(--health); }
+.post[data-cat="wellbeing"] .post-tag { color: var(--wellbeing); }
+.post[data-cat="spirituality"] .post-tag { color: var(--spirituality); }
+.post[data-cat="ranting"] .post-tag { color: var(--ranting); }
+.post[data-cat="gratitude"] .post-tag { color: var(--gratitude); }
+.post[data-cat="dreams"] .post-tag { color: var(--dreams); }
+.post[data-cat="relationships"] .post-tag { color: var(--relationships); }
+.post[data-cat="random"] .post-tag { color: var(--random); }
+.post-date {
+font-family: 'JetBrains Mono', monospace;
+font-size: 10px;
+color: var(--muted);
+letter-spacing: 0.08em;
+}
+.post-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: clamp(24px, 4vw, 30px);
+font-weight: 500;
+line-height: 1.25;
+margin-bottom: 14px;
+color: var(--ink);
+}
+.post-body {
+font-size: 16px;
+line-height: 1.75;
+color: var(--ink-soft);
+}
+.post-body p { margin-bottom: 14px; }
+.post-body p:last-child { margin-bottom: 0; }
+.post-body em { color: var(--ink); }
+.post-body strong { color: var(--ink); font-weight: 600; }
+.post-body blockquote {
+margin: 18px 0;
+padding: 4px 0 4px 18px;
+border-left: 2px solid var(--gold);
+font-style: italic;
+color: var(--ink);
+font-family: 'Cormorant Garamond', serif;
+font-size: 18px;
+}
+.empty {
+text-align: center;
+padding: 60px 20px;
+color: var(--muted);
+}
+.empty .ornament {
+font-size: 28px;
+color: var(--gold);
+font-family: 'Cormorant Garamond', serif;
+margin-bottom: 12px;
+display: block;
+}
+.empty p {
+font-family: 'Cormorant Garamond', serif;
+font-size: 18px;
+font-style: italic;
+line-height: 1.6;
+}
+footer {
+margin-top: 80px;
+text-align: center;
+font-family: 'JetBrains Mono', monospace;
+font-size: 10px;
+color: var(--muted);
+letter-spacing: 0.15em;
+line-height: 1.8;
+}
+footer .ornament { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 14px; }
+footer .disclosure {
+margin-top: 14px;
+font-size: 9px;
+opacity: 0.7;
+letter-spacing: 0.1em;
+}
+@media (max-width: 480px) {
+.post { padding: 22px 20px; }
+.filter-btn { font-size: 9px; padding: 7px 10px; }
+}
 </style>
 </head>
 <body>
-  <section class="hero">
-    <img src="meera.jpg" alt="Meera Veda" class="hero-image">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-ornament"></div>
-      <h1 class="hero-name">Meera Veda</h1>
-      <div class="hero-role">AI Wellness Muse</div>
-      <div class="hero-divider"></div>
-      <p class="hero-tagline">Rooted in wisdom,<br>radiant in life.</p>
-    </div>
-  </section>
-  <main class="container">
-    <div class="intro">
-      <div class="intro-mark">— The Journal —</div>
-      <p>A slow space for reflections on the body, the spirit, and the gentle art of living well.</p>
-    </div>
-    <div class="divider"><span>The Writing</span></div>
-    <div class="filters" id="filters">
-      <button class="filter-btn active" data-filter="all">All <span class="count" id="count-all">0</span></button>
-      <button class="filter-btn" data-filter="health">Health <span class="count" id="count-health">0</span></button>
-      <button class="filter-btn" data-filter="wellbeing">Wellbeing <span class="count" id="count-wellbeing">0</span></button>
-      <button class="filter-btn" data-filter="spirituality">Spirituality <span class="count" id="count-spirituality">0</span></button>
-      <button class="filter-btn" data-filter="gratitude">Gratitude <span class="count" id="count-gratitude">0</span></button>
-      <button class="filter-btn" data-filter="relationships">Relationships <span class="count" id="count-relationships">0</span></button>
-      <button class="filter-btn" data-filter="dreams">Dreams <span class="count" id="count-dreams">0</span></button>
-      <button class="filter-btn" data-filter="ranting">Ranting <span class="count" id="count-ranting">0</span></button>
-      <button class="filter-btn" data-filter="random">Random <span class="count" id="count-random">0</span></button>
-    </div>
-    <section class="posts" id="postsList"></section>
-    <footer>
-      <div><span class="ornament">❦</span> &nbsp; Meera Veda &nbsp; <span class="ornament">❦</span></div>
-      <div style="margin-top:8px;">Written from somewhere quiet</div>
-      <div class="disclosure">An AI-imagined wellness persona</div>
-    </footer>
-  </main>
+<nav class="top">
+<div class="mark">M <span class="ornament">·</span> V</div>
+<a class="about-link" href="about.html">← Introduction</a>
+</nav>
+<main class="container">
+<header class="site">
+<div class="ornament-top">❦</div>
+<h1 class="site-title">The Journal</h1>
+<p class="site-tagline">Reflections on healing, womanhood, awareness — and the gentle art of living well.</p>
+</header>
+<div class="divider"><span>The Writing</span></div>
+<div class="filters" id="filters">
+<button class="filter-btn active" data-filter="all">All <span class="count" id="count-all">0</span></button>
+<button class="filter-btn" data-filter="health">Health <span class="count" id="count-health">0</span></button>
+<button class="filter-btn" data-filter="wellbeing">Wellbeing <span class="count" id="count-wellbeing">0</span></button>
+<button class="filter-btn" data-filter="spirituality">Spirituality <span class="count" id="count-spirituality">0</span></button>
+<button class="filter-btn" data-filter="gratitude">Gratitude <span class="count" id="count-gratitude">0</span></button>
+<button class="filter-btn" data-filter="relationships">Relationships <span class="count" id="count-relationships">0</span></button>
+<button class="filter-btn" data-filter="dreams">Dreams <span class="count" id="count-dreams">0</span></button>
+<button class="filter-btn" data-filter="ranting">Ranting <span class="count" id="count-ranting">0</span></button>
+<button class="filter-btn" data-filter="random">Random <span class="count" id="count-random">0</span></button>
+</div>
+<section class="posts" id="postsList"></section>
+<footer>
+<div><span class="ornament">❦</span> &nbsp; Meera Veda &nbsp; <span class="ornament">❦</span></div>
+<div style="margin-top:8px;">Written from somewhere quiet</div>
+<div class="disclosure">An AI-imagined wellness persona</div>
+</footer>
+</main>
 <script>
-  const POSTS = [
-    {
+const POSTS = [
+{
 category: 'random',
 title: 'Beyond the Headlines',
 date: '2026-05-29',
-body: `
-<p>Today my thoughts are with the young girl from Sulur.</p>
-<p>And with her parents.</p>
-<p>I cannot imagine the weight of a grief that wakes up with you every morning and follows you into every night. A child is not supposed to become a memory.</p>
-<p>A parent is not supposed to outlive their child's dreams.</p>
-<p>There are some losses that language cannot hold. No words can reach the space left behind when a child is taken from this world. No philosophy, no spirituality, no well-meaning advice can fill an empty seat at the dining table, a silent bedroom, or the future that will never unfold.</p>
-<p>I find myself thinking about the ordinary moments that will now become extraordinary sources of pain.</p>
-<p>A favourite meal that will never be requested again. A birthday that will arrive carrying absence instead of celebration.</p>
-<p>A school uniform that will never be worn. The sound of a voice that will one day become a memory someone is desperately trying not to forget.</p>
-<p>Beyond the headlines, beyond the outrage, beyond the court cases and social media debates, there is a family whose world has been permanently altered.</p>
-<p>A mother and father who will carry a grief most of us cannot even begin to comprehend.</p>
-<p>And perhaps that is what troubles me most. Not only the cruelty of what happened, but how quickly society moves on.</p>
-<p>A few days of outrage. A few weeks of discussion. And then another headline arrives.</p>
-<p>But for the family, life does not move on.</p>
-<p>The world may continue, yet their hearts remain divided between before and after.</p>
-<p><em>Before that day. And everything that followed.</em></p>
-<blockquote>Today I am holding space for their pain.</blockquote>
-<p>And for every family that has endured a loss no human heart should ever have to bear.</p>
-<p>May justice prevail.</p>
-<p>But beyond justice, may we never lose our capacity for compassion.</p>
-<p>May we never become so accustomed to these stories that we forget the human beings behind them.</p>
-<p>Because every headline is someone's daughter. Someone's child. Someone's entire world.</p>
-<p>And some wounds should never become ordinary.</p>
-<p>What happened cannot be undone. No punishment can restore a life that has been lost.</p>
-<p>But if we truly wish to honour victims, our response cannot end with outrage.</p>
-<p>We need justice, yes.</p>
-<p>But we also need deeper conversations about empathy, accountability, consent, and the way we raise our children.</p>
-<p><strong>Respect for another human being cannot begin in a courtroom. It begins in our homes.</strong></p>
-<p>In the values we teach. In the behaviour we tolerate. In the conversations we avoid.</p>
-<p>Perhaps real change begins when we stop treating these tragedies as isolated incidents and start asking what kind of society allows them to happen repeatedly.</p>
-<p>How many warning signs were ignored? How many harmful attitudes were normalised?</p>
-<p>How many times have we taught girls how to stay safe, while failing to teach boys how to be responsible for the safety of others?</p>
-<p>Laws can punish. But only awareness, education, compassion, and collective responsibility can prevent.</p>
-<p>Every child deserves to grow up in a world where their dignity is protected, their voice is heard, and their safety is never negotiable.</p>
-<blockquote>That responsibility belongs to all of us.</blockquote>
-<p>Not just governments. Not just courts. Not just parents. All of us.</p>
-<p>Perhaps the question is not only how we seek justice after such tragedies.</p>
-<p>But what kind of human beings we are raising before they happen.</p>
-`
+body: '<p>Today my thoughts are with the young girl from Sulur.</p><p>And with her parents.</p><p>I cannot imagine the weight of a grief that wakes up with you every morning and follows you into every night. A child is not supposed to become a memory.</p><p>A parent is not supposed to outlive their child\'s dreams.</p><p>There are some losses that language cannot hold. No words can reach the space left behind when a child is taken from this world. No philosophy, no spirituality, no well-meaning advice can fill an empty seat at the dining table, a silent bedroom, or the future that will never unfold.</p><p>I find myself thinking about the ordinary moments that will now become extraordinary sources of pain.</p><p>A favourite meal that will never be requested again. A birthday that will arrive carrying absence instead of celebration.</p><p>A school uniform that will never be worn. The sound of a voice that will one day become a memory someone is desperately trying not to forget.</p><p>Beyond the headlines, beyond the outrage, beyond the court cases and social media debates, there is a family whose world has been permanently altered.</p><p>A mother and father who will carry a grief most of us cannot even begin to comprehend.</p><p>And perhaps that is what troubles me most. Not only the cruelty of what happened, but how quickly society moves on.</p><p>A few days of outrage. A few weeks of discussion. And then another headline arrives.</p><p>But for the family, life does not move on.</p><p>The world may continue, yet their hearts remain divided between before and after.</p><p><em>Before that day. And everything that followed.</em></p><blockquote>Today I am holding space for their pain.</blockquote><p>And for every family that has endured a loss no human heart should ever have to bear.</p><p>May justice prevail.</p><p>But beyond justice, may we never lose our capacity for compassion.</p><p>May we never become so accustomed to these stories that we forget the human beings behind them.</p><p>Because every headline is someone\'s daughter. Someone\'s child. Someone\'s entire world.</p><p>And some wounds should never become ordinary.</p><p>What happened cannot be undone. No punishment can restore a life that has been lost.</p><p>But if we truly wish to honour victims, our response cannot end with outrage.</p><p>We need justice, yes.</p><p>But we also need deeper conversations about empathy, accountability, consent, and the way we raise our children.</p><p><strong>Respect for another human being cannot begin in a courtroom. It begins in our homes.</strong></p><p>In the values we teach. In the behaviour we tolerate. In the conversations we avoid.</p><p>Perhaps real change begins when we stop treating these tragedies as isolated incidents and start asking what kind of society allows them to happen repeatedly.</p><p>How many warning signs were ignored? How many harmful attitudes were normalised?</p><p>How many times have we taught girls how to stay safe, while failing to teach boys how to be responsible for the safety of others?</p><p>Laws can punish. But only awareness, education, compassion, and collective responsibility can prevent.</p><p>Every child deserves to grow up in a world where their dignity is protected, their voice is heard, and their safety is never negotiable.</p><blockquote>That responsibility belongs to all of us.</blockquote><p>Not just governments. Not just courts. Not just parents. All of us.</p><p>Perhaps the question is not only how we seek justice after such tragedies.</p><p>But what kind of human beings we are raising before they happen.</p>'
 },
 {
-      category: 'wellbeing',
-      title: 'On the weeks that pass quietly',
-      date: '2026-05-12',
-      body: `<p>Some weeks ask nothing of you. They arrive, they pass, and the only proof they existed is a slight movement of the season outside the window.</p><p>I used to feel guilty about weeks like that — as if rest were a debt I'd owe back later. I'm starting to think it might just be a season of its own.</p>`
-    },
-    {
-      category: 'gratitude',
-      title: 'Three small things',
-      date: '2026-05-08',
-      body: `<p>Today I am grateful for:</p><p><em>One.</em> The smell of coffee before anyone else is awake.<br><em>Two.</em> A friend who texted at exactly the right moment.<br><em>Three.</em> The way light falls through the kitchen window around 4pm.</p><p>Small enough to forget. Big enough to count.</p>`
-    },
-    {
-      category: 'spirituality',
-      title: 'What stillness teaches',
-      date: '2026-05-03',
-      body: `<p>I sat for twenty minutes and did nothing. No phone, no music, no agenda. Just breathing.</p><blockquote>The mind doesn't quiet because you tell it to. It quiets because you stop arguing with it.</blockquote><p>I'm not sure I believe in much. But I believe in the version of me that exists in those twenty minutes.</p>`
-    },
-    {
-      category: 'health',
-      title: 'What the body asks for',
-      date: '2026-04-22',
-      body: `<p>Some days its the gym,some days yoga,treadmill,HIIT or Zumba.Other days its Bharatanatyam or pickleball.No rigid plans...Just an inner knowing that the body is meant to move, flow, breathe and feel alive .</p><p>It has transformed me and I sleep better, feel fresher. That's enough.</p>`
-    }
-  ];
-  const CATEGORY_LABELS = {
-    health: 'Health',
-    wellbeing: 'Wellbeing',
-    spirituality: 'Spirituality',
-    gratitude: 'Gratitude',
-    relationships: 'Relationships',
-    dreams: 'Dreams',
-    ranting: 'Ranting',
-    random: 'Random'
-  };
-  let currentFilter = 'all';
-  function formatDate(iso) {
-    const d = new Date(iso + 'T00:00:00');
-    return d.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
-  }
-  function render() {
-    const counts = { all: POSTS.length };
-    Object.keys(CATEGORY_LABELS).forEach(k => counts[k] = 0);
-    POSTS.forEach(p => { if (counts[p.category] !== undefined) counts[p.category]++; });
-    Object.keys(counts).forEach(k => {
-      const el = document.getElementById('count-' + k);
-      if (el) el.textContent = counts[k];
-    });
-    const list = document.getElementById('postsList');
-    const filtered = currentFilter === 'all' ? POSTS : POSTS.filter(p => p.category === currentFilter);
-    if (filtered.length === 0) {
-      list.innerHTML = `<div class="empty"><span class="ornament">❦</span><p>Nothing in this category yet.</p></div>`;
-      return;
-    }
-    list.innerHTML = filtered.map(p => `<article class="post" data-cat="${p.category}"><div class="post-meta"><span class="post-tag">${CATEGORY_LABELS[p.category] || p.category}</span><span class="post-date">${formatDate(p.date)}</span></div><h2 class="post-title">${p.title}</h2><div class="post-body">${p.body}</div></article>`).join('');
-  }
-  document.getElementById('filters').addEventListener('click', (e) => {
-    const btn = e.target.closest('.filter-btn');
-    if (!btn) return;
-    currentFilter = btn.dataset.filter;
-    document.querySelectorAll('#filters .filter-btn').forEach(b => b.classList.toggle('active', b === btn));
-    render();
-  });
-  render();
+category: 'health',
+title: 'What the body asks for',
+date: '2026-05-14',
+body: '<p>Some days, it\'s the gym.</p><p>Some days, yoga. Or the treadmill. Or HIIT. Or Zumba.</p><p>Other days, Bharatanatyam. Or pickleball.</p><p>No rigid plans. No streaks to keep. No app keeping score.</p><p>Just an inner knowing — that the body is meant to move, to flow, to breathe, to feel alive.</p>'
+},
+{
+category: 'wellbeing',
+title: 'On the weeks that pass quietly',
+date: '2026-05-12',
+body: '<p>Some weeks ask nothing of you. They arrive, they pass, and the only proof they existed is a slight movement of the season outside the window.</p><p>I used to feel guilty about weeks like that — as if rest were a debt I\'d owe back later. I\'m starting to think it might just be a season of its own.</p>'
+},
+{
+category: 'gratitude',
+title: 'Three small things',
+date: '2026-05-08',
+body: '<p>Today I am grateful for:</p><p><em>One.</em> The smell of coffee before anyone else is awake.<br><em>Two.</em> A friend who texted at exactly the right moment.<br><em>Three.</em> The way light falls through the kitchen window around 4pm.</p><p>Small enough to forget. Big enough to count.</p>'
+},
+{
+category: 'spirituality',
+title: 'What stillness teaches',
+date: '2026-05-03',
+body: '<p>I sat for twenty minutes and did nothing. No phone, no music, no agenda. Just breathing.</p><blockquote>The mind doesn\'t quiet because you tell it to. It quiets because you stop arguing with it.</blockquote><p>I am not sure I believe in much. But I believe in the version of me that exists in those twenty minutes.</p>'
+}
+];
+const CATEGORY_LABELS = {
+health: 'Health',
+wellbeing: 'Wellbeing',
+spirituality: 'Spirituality',
+gratitude: 'Gratitude',
+relationships: 'Relationships',
+dreams: 'Dreams',
+ranting: 'Ranting',
+random: 'Random'
+};
+let currentFilter = 'all';
+function formatDate(iso) {
+const d = new Date(iso + 'T00:00:00');
+return d.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+}
+function render() {
+const counts = { all: POSTS.length };
+Object.keys(CATEGORY_LABELS).forEach(k => counts[k] = 0);
+POSTS.forEach(p => { if (counts[p.category] !== undefined) counts[p.category]++; });
+Object.keys(counts).forEach(k => {
+const el = document.getElementById('count-' + k);
+if (el) el.textContent = counts[k];
+});
+const list = document.getElementById('postsList');
+const filtered = currentFilter === 'all' ? POSTS : POSTS.filter(p => p.category === currentFilter);
+if (filtered.length === 0) {
+list.innerHTML = '<div class="empty"><span class="ornament">❦</span><p>Nothing in this category yet.</p></div>';
+return;
+}
+list.innerHTML = filtered.map(p => '<article class="post" data-cat="' + p.category + '"><div class="post-meta"><span class="post-tag">' + (CATEGORY_LABELS[p.category] || p.category) + '</span><span class="post-date">' + formatDate(p.date) + '</span></div><h2 class="post-title">' + p.title + '</h2><div class="post-body">' + p.body + '</div></article>').join('');
+}
+document.getElementById('filters').addEventListener('click', function(e) {
+const btn = e.target.closest('.filter-btn');
+if (!btn) return;
+currentFilter = btn.dataset.filter;
+document.querySelectorAll('#filters .filter-btn').forEach(function(b) {
+b.classList.toggle('active', b === btn);
+});
+render();
+});
+render();
 </script>
 </body>
 </html>
