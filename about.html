@@ -23,6 +23,9 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+body { animation: pageFadeIn 0.55s ease both; }
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+a.page-link { transition: opacity 0.3s; }
 body {
 background: var(--bg);
 color: var(--ink);
@@ -408,7 +411,7 @@ article { padding: 0 20px 60px; }
 
 <nav class="hero-nav">
 <div class="mark">Meera's <span>·</span> Veda</div>
-<a href="index.html">The Journal &rarr;</a>
+<a href="index.html" class="page-link">The Journal &rarr;</a>
 </nav>
 
 <div class="hero-content">
@@ -488,11 +491,25 @@ people learning to think for themselves <strong>without losing compassion for ot
 <span>Written</span>
 Softly.<br>Honestly.<br>Fearlessly.
 </div>
-<a href="index.html" class="cta-btn">Enter the Journal &rarr;</a>
+<a href="index.html" class="cta-btn page-link">Enter the Journal &rarr;</a>
 <br>
 <div class="closing-brand">Meera's <span>&middot;</span> Veda</div>
 <div class="closing-disclosure">An AI-imagined wellness persona</div>
 </div>
 
+
+<script>
+document.querySelectorAll('a.page-link').forEach(a => {
+a.addEventListener('click', function(e) {
+const href = this.getAttribute('href');
+if (href && !href.startsWith('#')) {
+e.preventDefault();
+document.body.style.opacity = '0';
+document.body.style.transition = 'opacity 0.4s ease';
+setTimeout(() => { window.location.href = href; }, 370);
+}
+});
+});
+</script>
 </body>
-</
+</html>
