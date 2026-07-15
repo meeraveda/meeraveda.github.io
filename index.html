@@ -561,6 +561,7 @@
     opacity: 0.7;
     font-style: italic;
   }
+  .post-date {
     font-family: 'JetBrains Mono', monospace;
     font-size: 9px;
     color: var(--muted);
@@ -572,6 +573,38 @@
     color: var(--muted);
     opacity: 0.6;
     margin-left: auto;
+  }
+  .post-share {
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 40px;
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+    line-height: 1;
+    color: var(--muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .post-share:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .post-share.copied {
+    border-color: #4a7a5a;
+    color: #4a7a5a;
+  }
+  .post-featured .post-share {
+    border-color: rgba(245,234,216,0.25);
+    color: rgba(245,234,216,0.5);
+  }
+  .post-featured .post-share:hover {
+    border-color: var(--gold);
+    color: var(--gold);
   }
   .post-title {
     font-family: 'Cormorant Garamond', serif;
@@ -1583,6 +1616,14 @@
     return text.replace(new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>');
   }
 
+  function slugify(title) {
+    return title
+      .toLowerCase()
+      .replace(/['']/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
   function buildPost(p, i, featured) {
     const label = CATEGORY_LABELS[p.category] || p.category;
     const delay = Math.min(i * 0.06, 0.45);
@@ -1590,15 +1631,17 @@
     const title = highlight(p.title, searchQuery);
     const teaser = highlight(stripHtml(p.body), searchQuery);
     const body = searchQuery ? highlight(p.body, searchQuery) : p.body;
+    const slug = slugify(p.title);
     const secondaryTag = p.secondaryTag
       ? '<span class="post-tag post-tag-secondary">' + p.secondaryTag + '</span>'
       : '';
-    return '<article class="' + cls + '" data-cat="' + p.category + '" style="animation-delay:' + delay + 's">'
+    return '<article class="' + cls + '" data-cat="' + p.category + '" data-slug="' + slug + '" style="animation-delay:' + delay + 's">'
       + '<div class="post-meta">'
         + '<span class="post-tag">' + label + '</span>'
         + secondaryTag
         + '<span class="post-date">' + formatDate(p.date) + '</span>'
         + '<span class="post-read-time">' + readTime(p.body) + '</span>'
+        + '<button class="post-share" onclick="copyPostLink(\'' + slug + '\', this)" title="Copy link to this post">&#128279;</button>'
       + '</div>'
       + '<h2 class="post-title">' + title + '</h2>'
       + '<div class="post-teaser">' + teaser + '</div>'
@@ -1698,9 +1741,63 @@
   function togglePost(btn) {
     const article = btn.closest('.post, .post-featured');
     article.classList.toggle('open');
-    btn.innerHTML = article.classList.contains('open')
+    const isOpen = article.classList.contains('open');
+    btn.innerHTML = isOpen
       ? 'Close <span class="arrow">&#8595;</span>'
       : 'Continue reading <span class="arrow">&#8595;</span>';
+
+    const slug = article.dataset.slug;
+    const url = new URL(window.location.href);
+    if (isOpen) {
+      url.searchParams.set('post', slug);
+    } else {
+      url.searchParams.delete('post');
+    }
+    window.history.replaceState({}, '', url.toString());
+  }
+
+  function copyPostLink(slug, btn) {
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.searchParams.set('post', slug);
+    const link = url.toString();
+
+    const showCopied = () => {
+      const original = btn.innerHTML;
+      btn.innerHTML = '&#10003;';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('copied');
+      }, 1600);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(link).then(showCopied).catch(() => {
+        prompt('Copy this link:', link);
+      });
+    } else {
+      prompt('Copy this link:', link);
+    }
+  }
+
+  function openPostFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('post');
+    if (!slug) return;
+
+    currentFilter = 'all';
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+    render();
+
+    setTimeout(() => {
+      const article = document.querySelector('[data-slug="' + slug + '"]');
+      if (!article) return;
+      article.classList.add('open');
+      const toggleBtn = article.querySelector('.post-toggle');
+      if (toggleBtn) toggleBtn.innerHTML = 'Close <span class="arrow">&#8595;</span>';
+      article.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 60);
   }
 
   function clearSearch() {
@@ -1887,6 +1984,7 @@
 
   document.getElementById('postCountDisplay').textContent = POSTS.length;
   render();
+  openPostFromUrl();
 </script>
 </body>
 </html>
