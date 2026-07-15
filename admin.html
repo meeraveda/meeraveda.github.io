@@ -56,12 +56,12 @@
   #gateError { color: #b0433a; font-size: 13px; margin-top: 12px; display: none; }
 
   /* ── Admin panel ── */
-  #panel { display: none; width: 100%; max-width: 780px; }
+  #panel { display: none; width: 100%; max-width: 820px; }
   .header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom: 24px; }
   .header h1 { font-size: 26px; font-style: italic; font-weight: normal; }
   .header .sub { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
 
-  .tabs { display:flex; gap: 8px; margin-bottom: 20px; }
+  .tabs { display:flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
   .tab {
     padding: 8px 18px; border-radius: 20px; border: 1px solid var(--line);
     background: var(--paper); color: var(--ink-soft); font-size: 13px;
@@ -72,6 +72,45 @@
     display:inline-block; margin-left:6px; padding: 1px 7px; border-radius: 10px;
     background: var(--gold); color: #fff; font-size: 11px;
   }
+
+  .stats-total {
+    background: var(--dark);
+    color: var(--paper);
+    border-radius: 8px;
+    padding: 24px 26px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .stats-total-number { font-size: 40px; font-style: italic; font-family: Georgia, serif; }
+  .stats-total-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,234,216,0.6); }
+  .stats-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    gap: 12px;
+  }
+  .stats-rank {
+    font-family: Georgia, serif; font-style: italic; color: var(--gold-deep);
+    font-size: 15px; width: 22px; flex-shrink: 0;
+  }
+  .stats-info { flex: 1; min-width: 0; }
+  .stats-title { font-size: 15px; color: var(--ink); }
+  .stats-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .stats-count {
+    font-size: 20px; font-weight: bold; color: var(--ink);
+    flex-shrink: 0; text-align: right; min-width: 50px;
+  }
+  .stats-bar-track {
+    height: 3px; background: var(--line); border-radius: 3px; margin-top: 8px; overflow: hidden;
+  }
+  .stats-bar-fill { height: 100%; background: var(--gold); }
 
   .comment-card {
     background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
@@ -117,6 +156,9 @@
       <button class="tab" id="tabApproved" onclick="switchTab('approved')">
         Approved <span class="badge" id="countApproved">0</span>
       </button>
+      <button class="tab" id="tabStats" onclick="switchTab('stats')">
+        Stats
+      </button>
     </div>
 
     <div id="list"></div>
@@ -132,6 +174,7 @@
 
   let currentTab = 'pending';
   let allComments = [];
+  let allViews = [];
 
   function tryLogin() {
     const val = document.getElementById('passInput').value;
@@ -167,14 +210,15 @@
   async function loadAll() {
     document.getElementById('list').innerHTML = '<div class="loading">Loading...</div>';
     try {
-      const { data, error } = await sb
-        .from('comments')
-        .select('*')
-        .order('created_at', { ascending: false });
-      if (error) throw error;
-      allComments = data || [];
+      const [{ data: comments, error: cErr }, { data: views, error: vErr }] = await Promise.all([
+        sb.from('comments').select('*').order('created_at', { ascending: false }),
+        sb.from('page_views').select('*').order('views', { ascending: false })
+      ]);
+      if (cErr) throw cErr;
+      allComments = comments || [];
+      allViews = vErr ? [] : (views || []);
     } catch (e) {
-      document.getElementById('list').innerHTML = '<div class="empty">Could not load comments. Check your connection.</div>';
+      document.getElementById('list').innerHTML = '<div class="empty">Could not load data. Check your connection.</div>';
       return;
     }
     render();
@@ -184,10 +228,27 @@
     currentTab = tab;
     document.getElementById('tabPending').classList.toggle('active', tab === 'pending');
     document.getElementById('tabApproved').classList.toggle('active', tab === 'approved');
+    document.getElementById('tabStats').classList.toggle('active', tab === 'stats');
     render();
   }
 
+  function timeAgo(dateStr) {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 60) return mins <= 1 ? 'just now' : mins + ' min ago';
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return hours + 'h ago';
+    const days = Math.floor(hours / 24);
+    if (days < 30) return days + 'd ago';
+    return new Date(dateStr).toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+  }
+
   function render() {
+    if (currentTab === 'stats') {
+      renderStats();
+      return;
+    }
+
     const pending = allComments.filter(c => !c.approved);
     const approved = allComments.filter(c => c.approved);
     document.getElementById('countPending').textContent = pending.length;
@@ -216,6 +277,41 @@
         <div class="comment-actions">${actions}</div>
       </div>`;
     }).join('');
+  }
+
+  function renderStats() {
+    const list = document.getElementById('list');
+    const siteRow = allViews.find(v => v.slug === '__site__');
+    const totalVisits = siteRow ? siteRow.views : 0;
+    const posts = allViews.filter(v => v.slug !== '__site__').sort((a, b) => b.views - a.views);
+
+    if (allViews.length === 0) {
+      list.innerHTML = '<div class="stats-total"><div><div class="stats-total-label">Total Site Visits</div><div class="stats-total-number">0</div></div></div>'
+        + '<div class="empty">No views recorded yet. They\'ll start appearing as people read.</div>';
+      return;
+    }
+
+    const maxViews = posts.length ? posts[0].views : 1;
+
+    const rows = posts.map((p, i) => {
+      const pct = Math.round((p.views / maxViews) * 100);
+      return `<div class="stats-row">
+        <div class="stats-rank">${i + 1}</div>
+        <div class="stats-info">
+          <div class="stats-title">${escapeHtml(p.title || p.slug)}</div>
+          <div class="stats-meta">Last read ${timeAgo(p.last_viewed)}</div>
+          <div class="stats-bar-track"><div class="stats-bar-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="stats-count">${p.views}</div>
+      </div>`;
+    }).join('');
+
+    list.innerHTML = `<div class="stats-total">
+        <div>
+          <div class="stats-total-label">Total Site Visits</div>
+          <div class="stats-total-number">${totalVisits}</div>
+        </div>
+      </div>` + (rows || '<div class="empty">No individual posts read yet.</div>');
   }
 
   async function approveComment(id) {
