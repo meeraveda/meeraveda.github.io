@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meera's Veda — The Journal</title>
 <meta name="description" content="Reflections on healing, womanhood, and awareness — and what has worked for me.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Meera's Veda">
+<meta property="og:title" content="Meera's Veda — The Journal">
+<meta property="og:description" content="Reflections on healing, womanhood, and awareness — and what has worked for me.">
+<meta property="og:url" content="https://meeraveda.github.io/">
+<meta property="og:image" content="https://meeraveda.github.io/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meera's Veda — The Journal">
+<meta name="twitter:description" content="Reflections on healing, womanhood, and awareness — and what has worked for me.">
+<meta name="twitter:image" content="https://meeraveda.github.io/og-cover.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -259,6 +269,183 @@
   }
 
   /* ── SEARCH BAR ── */
+  .utility-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .utility-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    padding: 7px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+  .utility-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold-deep);
+  }
+  .utility-icon { font-size: 12px; }
+
+  body.night-mode {
+    --bg: #14110d;
+    --paper: #1c1812;
+    --ink: #ece2d0;
+    --ink-soft: #cabfa8;
+    --muted: #7d7360;
+    --line: #33291c;
+    --gold: #c9a870;
+    --gold-deep: #d9bc8a;
+    --dark: #0d0b08;
+  }
+  body.night-mode .hero,
+  body.night-mode .post-featured {
+    background: #0d0b08;
+  }
+
+  .quote-toolbar {
+    position: fixed;
+    z-index: 500;
+    background: var(--dark);
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    gap: 7px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    transform: translate(-50%, -100%);
+    white-space: nowrap;
+  }
+  .quote-toolbar.visible { display: inline-flex; }
+  .quote-toolbar-icon { color: var(--gold); }
+
+  .related-wrap {
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+  .related-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 14px;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .related-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 12px 13px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+  .related-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-1px);
+  }
+  .related-cat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .related-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  @media (max-width: 720px) {
+    .related-grid { grid-template-columns: 1fr; }
+  }
+
+  .start-here {
+    max-width: 900px;
+    margin: 0 auto 50px;
+    padding: 0 24px;
+  }
+  .start-here-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .start-here-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .start-here-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 18px 16px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.25s ease;
+    font-family: inherit;
+  }
+  .start-here-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(184,153,104,0.15);
+  }
+  .start-here-cat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+  }
+  .start-here-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  .start-here-arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: auto;
+  }
+  @media (max-width: 720px) {
+    .start-here-grid { grid-template-columns: 1fr; }
+  }
+
   .search-wrap {
     background: var(--dark);
     padding: 0 24px 28px;
@@ -1318,6 +1505,35 @@
     <input type="text" id="searchInput" placeholder="Search reflections..." autocomplete="off">
     <button class="search-clear" id="searchClear" onclick="clearSearch()">&#10005;</button>
   </div>
+  <div class="utility-row">
+    <button class="utility-btn" onclick="surpriseMe()">
+      <span class="utility-icon">&#10022;</span> Surprise me
+    </button>
+    <button class="utility-btn" id="nightModeToggle" onclick="toggleNightMode()">
+      <span class="utility-icon" id="nightModeIcon">&#9789;</span> <span id="nightModeLabel">Night mode</span>
+    </button>
+  </div>
+</div>
+
+<div class="start-here" id="startHere">
+  <div class="start-here-label">New here? Begin with</div>
+  <div class="start-here-grid">
+    <button class="start-here-card" onclick="goToPost('the-most-romantic-story-i-never-expected-to-love')">
+      <span class="start-here-cat">Spirituality</span>
+      <span class="start-here-title">The Most Romantic Story I Never Expected to Love</span>
+      <span class="start-here-arrow">Begin reading &rarr;</span>
+    </button>
+    <button class="start-here-card" onclick="goToPost('borrowed-time')">
+      <span class="start-here-cat">Gratitude</span>
+      <span class="start-here-title">Borrowed Time</span>
+      <span class="start-here-arrow">Begin reading &rarr;</span>
+    </button>
+    <button class="start-here-card" onclick="goToPost('admiration-is-freedom-envy-is-a-prison')">
+      <span class="start-here-cat">Womanhood</span>
+      <span class="start-here-title">Admiration Is Freedom. Envy Is a Prison.</span>
+      <span class="start-here-arrow">Begin reading &rarr;</span>
+    </button>
+  </div>
 </div>
 
 <div class="body-wrap">
@@ -1343,6 +1559,11 @@
   <div class="search-notice" id="searchNotice"></div>
   <div id="featuredWrap"></div>
   <section class="posts" id="postsList"></section>
+
+  <div class="quote-toolbar" id="quoteToolbar" onclick="createQuoteCard()">
+    <span class="quote-toolbar-icon">&#10022;</span> Create quote card
+  </div>
+  <canvas id="quoteCanvas" width="1080" height="1350" style="display:none;"></canvas>
 
   <section class="reviews-section">
     <div class="reviews-header">
@@ -1616,12 +1837,171 @@
     return text.replace(new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>');
   }
 
+  // ── QUOTE CARD GENERATOR ──
+  let currentSelectionText = '';
+  let currentSelectionCategory = 'Musings';
+
+  function updateQuoteToolbar() {
+    const toolbar = document.getElementById('quoteToolbar');
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || sel.toString().trim().length < 8) {
+      toolbar.classList.remove('visible');
+      currentSelectionText = '';
+      return;
+    }
+    const anchorNode = sel.anchorNode;
+    const article = anchorNode && anchorNode.parentElement ? anchorNode.parentElement.closest('.post, .post-featured') : null;
+    if (!article) {
+      toolbar.classList.remove('visible');
+      return;
+    }
+    const text = sel.toString().trim();
+    if (text.length > 400) {
+      toolbar.classList.remove('visible');
+      return;
+    }
+    currentSelectionText = text;
+    const label = CATEGORY_LABELS[article.dataset.cat] || article.dataset.cat || 'Musings';
+    currentSelectionCategory = label;
+
+    const range = sel.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    toolbar.style.left = (rect.left + rect.width / 2) + 'px';
+    toolbar.style.top = (rect.top - 10) + 'px';
+    toolbar.classList.add('visible');
+  }
+
+  document.addEventListener('selectionchange', () => {
+    clearTimeout(window._selTimeout);
+    window._selTimeout = setTimeout(updateQuoteToolbar, 200);
+  });
+  document.addEventListener('scroll', () => {
+    document.getElementById('quoteToolbar').classList.remove('visible');
+  }, { passive: true });
+
+  function wrapCanvasText(ctx, text, maxWidth) {
+    const words = text.split(' ');
+    const lines = [];
+    let line = '';
+    for (const word of words) {
+      const test = line ? line + ' ' + word : word;
+      if (ctx.measureText(test).width > maxWidth && line) {
+        lines.push(line);
+        line = word;
+      } else {
+        line = test;
+      }
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  function createQuoteCard() {
+    if (!currentSelectionText) return;
+    const canvas = document.getElementById('quoteCanvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+
+    // Background
+    const grad = ctx.createRadialGradient(W/2, 0, 100, W/2, H/2, H);
+    grad.addColorStop(0, '#fbf3e2');
+    grad.addColorStop(0.45, '#f5ead8');
+    grad.addColorStop(1, '#ece0c6');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Frame
+    ctx.strokeStyle = 'rgba(158,122,70,0.35)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(56, 56, W - 112, H - 112);
+
+    // Corner brackets
+    ctx.strokeStyle = '#9e7a46';
+    ctx.lineWidth = 3;
+    const cl = 26, m = 40;
+    // top-left
+    ctx.beginPath(); ctx.moveTo(m, m + cl); ctx.lineTo(m, m); ctx.lineTo(m + cl, m); ctx.stroke();
+    // top-right
+    ctx.beginPath(); ctx.moveTo(W - m - cl, m); ctx.lineTo(W - m, m); ctx.lineTo(W - m, m + cl); ctx.stroke();
+    // bottom-left
+    ctx.beginPath(); ctx.moveTo(m, H - m - cl); ctx.lineTo(m, H - m); ctx.lineTo(m + cl, H - m); ctx.stroke();
+    // bottom-right
+    ctx.beginPath(); ctx.moveTo(W - m - cl, H - m); ctx.lineTo(W - m, H - m); ctx.lineTo(W - m, H - m - cl); ctx.stroke();
+
+    // Category label
+    ctx.fillStyle = '#9e7a46';
+    ctx.font = '16px "JetBrains Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(currentSelectionCategory.toUpperCase(), W/2, 160);
+
+    // Quote text (word wrapped, centered vertically)
+    let fontSize = currentSelectionText.length > 180 ? 42 : currentSelectionText.length > 90 ? 52 : 64;
+    ctx.font = 'italic ' + fontSize + 'px "Cormorant Garamond", serif';
+    let lines = wrapCanvasText(ctx, '\u201c' + currentSelectionText + '\u201d', W - 200);
+    while (lines.length > 9 && fontSize > 30) {
+      fontSize -= 4;
+      ctx.font = 'italic ' + fontSize + 'px "Cormorant Garamond", serif';
+      lines = wrapCanvasText(ctx, '\u201c' + currentSelectionText + '\u201d', W - 200);
+    }
+    const lineHeight = fontSize * 1.35;
+    const totalHeight = lines.length * lineHeight;
+    let y = (H - totalHeight) / 2 + fontSize / 2;
+    ctx.fillStyle = '#2f2419';
+    lines.forEach(line => {
+      ctx.fillText(line, W/2, y);
+      y += lineHeight;
+    });
+
+    // Signature
+    ctx.font = 'italic 30px "Cormorant Garamond", serif';
+    ctx.fillStyle = '#9e7a46';
+    ctx.fillText('\u2014 Meera\u2019s Veda', W/2, H - 118);
+
+    canvas.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'meeras-veda-quote.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+    }, 'image/png');
+
+    document.getElementById('quoteToolbar').classList.remove('visible');
+    window.getSelection().removeAllRanges();
+  }
+
   function slugify(title) {
     return title
       .toLowerCase()
       .replace(/['']/g, '')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
+  }
+
+  function getRelatedPosts(p) {
+    const sameCategory = POSTS.filter(other => other.category === p.category && other.title !== p.title);
+    const pool = sameCategory.length >= 2 ? sameCategory : POSTS.filter(other => other.title !== p.title);
+    const shuffled = pool.slice().sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 3);
+  }
+
+  function buildRelated(p) {
+    const related = getRelatedPosts(p);
+    if (related.length === 0) return '';
+    const items = related.map(r => {
+      const slug = slugify(r.title);
+      const label = CATEGORY_LABELS[r.category] || r.category;
+      return '<button class="related-card" onclick="goToPost(\'' + slug + '\')">'
+        + '<span class="related-cat">' + label + '</span>'
+        + '<span class="related-title">' + r.title + '</span>'
+        + '</button>';
+    }).join('');
+    return '<div class="related-wrap">'
+      + '<div class="related-label">You might also like</div>'
+      + '<div class="related-grid">' + items + '</div>'
+      + '</div>';
   }
 
   function buildPost(p, i, featured) {
@@ -1647,6 +2027,7 @@
       + '<div class="post-teaser">' + teaser + '</div>'
       + '<div class="post-full">' + body
         + '<div class="post-signature">&mdash; Meera\'s Veda</div>'
+        + buildRelated(p)
       + '</div>'
       + '<button class="post-toggle" onclick="togglePost(this)">Continue reading <span class="arrow">&#8595;</span></button>'
       + '</article>';
@@ -1781,11 +2162,7 @@
     }
   }
 
-  function openPostFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    const slug = params.get('post');
-    if (!slug) return;
-
+  function openPostBySlug(slug) {
     currentFilter = 'all';
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
     render();
@@ -1798,6 +2175,43 @@
       if (toggleBtn) toggleBtn.innerHTML = 'Close <span class="arrow">&#8595;</span>';
       article.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 60);
+  }
+
+  function openPostFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('post');
+    if (!slug) return;
+    openPostBySlug(slug);
+  }
+
+  function goToPost(slug) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('post', slug);
+    window.history.pushState({}, '', url.toString());
+    openPostBySlug(slug);
+  }
+
+  function surpriseMe() {
+    const random = POSTS[Math.floor(Math.random() * POSTS.length)];
+    const slug = slugify(random.title);
+    goToPost(slug);
+  }
+
+  function toggleNightMode() {
+    const isNight = document.body.classList.toggle('night-mode');
+    document.getElementById('nightModeIcon').innerHTML = isNight ? '&#9788;' : '&#9789;';
+    document.getElementById('nightModeLabel').textContent = isNight ? 'Day mode' : 'Night mode';
+    try { localStorage.setItem('mv-night-mode', isNight ? '1' : '0'); } catch(e) {}
+  }
+
+  function initNightMode() {
+    let saved = '0';
+    try { saved = localStorage.getItem('mv-night-mode') || '0'; } catch(e) {}
+    if (saved === '1') {
+      document.body.classList.add('night-mode');
+      document.getElementById('nightModeIcon').innerHTML = '&#9788;';
+      document.getElementById('nightModeLabel').textContent = 'Day mode';
+    }
   }
 
   function clearSearch() {
@@ -1985,6 +2399,7 @@
   document.getElementById('postCountDisplay').textContent = POSTS.length;
   render();
   openPostFromUrl();
+  initNightMode();
 </script>
 </body>
 </html>
