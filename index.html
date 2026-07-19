@@ -348,25 +348,6 @@
     fill: #ffffff;
     animation: starTwinkle 4s ease-in-out infinite;
   }
-  .star-node.mine circle.core {
-    filter: brightness(1.4);
-    animation: starTwinkleMine 2.6s ease-in-out infinite;
-  }
-  @keyframes starTwinkleMine {
-    0%, 100% { opacity: 0.75; }
-    50% { opacity: 1; }
-  }
-  .my-pattern-path {
-    stroke-dasharray: 3 5;
-    animation: patternDash 3s linear infinite;
-  }
-  @keyframes patternDash {
-    to { stroke-dashoffset: -16; }
-  }
-  .moon-phase-label {
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 0.12em;
-  }
 
   .utility-row {
     display: flex;
@@ -431,6 +412,51 @@
   }
   .quote-toolbar.visible { display: inline-flex; }
   .quote-toolbar-icon { color: var(--gold); }
+
+  .themes-wrap {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .themes-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .themes-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .theme-pill {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold-deep);
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .theme-pill:hover {
+    background: var(--gold);
+    color: var(--paper);
+  }
+  .post-featured .theme-pill {
+    border-color: rgba(245,234,216,0.4);
+    color: rgba(245,234,216,0.75);
+  }
+  .post-featured .theme-pill:hover {
+    background: var(--gold);
+    color: var(--dark);
+  }
 
   .reactions-wrap {
     margin-top: 34px;
@@ -886,64 +912,6 @@
   .post.open[data-cat="relationships"]{ background: rgba(184,92,126,0.05); }
   .post.open[data-cat="musings"]      { background: rgba(122,112,96,0.04); }
   .post.open[data-cat="unwritten"]    { background: rgba(74,122,122,0.05); }
-  .post.open[data-cat="ranting"]      { background: rgba(200,154,58,0.06); }
-  .post.open[data-cat="bookreviews"]  { background: rgba(184,153,104,0.06); }
-
-  /* ── WARMER LINK COLORS INSIDE ESSAYS ── */
-  .post-full a, .post-teaser a {
-    color: var(--gold-deep);
-    text-decoration-color: rgba(138,111,62,0.35);
-    text-underline-offset: 3px;
-    transition: color 0.2s ease;
-  }
-  .post-full a:hover, .post-teaser a:hover { color: var(--gold); }
-  .post-featured .post-full a { color: var(--gold); text-decoration-color: rgba(184,153,104,0.4); }
-  .post-featured .post-full a:hover { color: #f5ead8; }
-
-  /* ── ILLUSTRATED DIVIDER (line-art motif, ties homepage + posts together) ── */
-  .illustrated-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    margin: 22px auto 26px;
-    max-width: 260px;
-    opacity: 0.55;
-  }
-  .illustrated-divider .id-line {
-    flex: 1;
-    height: 1px;
-    background: var(--line);
-  }
-  .illustrated-divider svg {
-    width: 26px;
-    height: 26px;
-    color: var(--gold-deep);
-    flex-shrink: 0;
-  }
-  .post-featured .illustrated-divider .id-line { background: rgba(245,234,216,0.15); }
-  .post-featured .illustrated-divider svg { color: var(--gold); }
-
-  /* ── CLOSING FLOURISH ── */
-  .post-flourish {
-    text-align: center;
-    margin: 28px 0 6px;
-    opacity: 0.6;
-  }
-  .post-flourish svg {
-    width: 22px;
-    height: 22px;
-    color: var(--gold-deep);
-  }
-  .post-featured .post-flourish svg { color: var(--gold); }
-
-  /* ── HERO / MASTHEAD PARALLAX ── */
-  .masthead-portrait, .masthead-text {
-    will-change: transform;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .masthead-portrait, .masthead-text { transform: none !important; }
-  }
 
   /* Open/close */
   .post.open .post-teaser { display: none; }
@@ -1603,10 +1571,10 @@
     border-color: transparent;
     padding: 36px 36px 30px;
   }
-  .review-card.reader-submitted {
-    border-left: 3px solid var(--gold);
-    background: #fffdf7;
-  }
+  .review-card.reader-submitted { background: #fffdf7; border-left: 3px solid var(--gold); }
+  .review-card.reader-submitted .review-quote-mark { color: var(--card-accent, var(--gold)); }
+  .review-card.reader-submitted .review-post-tag { color: var(--card-accent, var(--gold-deep)); }
+  .review-card.reader-submitted .review-reply { border-left-color: var(--card-accent, var(--gold)); }
   .review-quote-mark {
     font-family: 'Cormorant Garamond', serif;
     font-size: 56px;
@@ -1631,6 +1599,50 @@
   .review-name { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
   .review-card.featured .review-name { color: rgba(245,234,216,0.35); }
   .review-post { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: var(--gold); opacity: 0.7; margin-left: auto; font-style: italic; text-align: right; }
+  .review-post-tag {
+    display: block;
+    margin-top: 10px;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--gold-deep);
+    cursor: pointer;
+    text-align: left;
+    opacity: 0.85;
+  }
+  .review-post-tag:hover { text-decoration: underline; }
+  .review-card.featured .review-post-tag { color: var(--gold); }
+  .review-reply {
+    margin-top: 14px;
+    padding: 12px 14px 12px 18px;
+    background: var(--bg);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+  }
+  .review-reply-mark {
+    font-size: 13px;
+    color: var(--gold-deep);
+    margin-bottom: 4px;
+  }
+  .review-reply-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .review-reply-signature {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    opacity: 0.8;
+  }
   .review-date { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); opacity: 0.5; }
 
   /* Comment form */
@@ -1714,6 +1726,14 @@
     text-align: center; padding: 32px;
     font-family: 'Cormorant Garamond', serif; font-style: italic;
     font-size: 17px; color: var(--muted);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .drop-loading {
+    animation: dropPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes dropPulse {
+    0%, 100% { opacity: 0.35; transform: translateY(0); }
+    50% { opacity: 0.9; transform: translateY(2px); }
   }
   .comments-empty {
     text-align: center; padding: 32px 20px;
@@ -2161,6 +2181,44 @@
     const d = new Date(iso + 'T00:00:00');
     return d.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
   }
+  // ── THEMES (cross-referencing recurring threads across essays) ──
+  const THEMES = [
+    { name: 'Shiva', keywords: ['shiva', 'mahadeva', 'sati'] },
+    { name: 'Draupadi', keywords: ['draupadi'] },
+    { name: 'Meenakshi', keywords: ['meenakshi'] },
+    { name: 'Radha & Krishna', keywords: ['radha', 'krishna'] },
+    { name: 'Meera Bai', keywords: ['meera bai'] },
+    { name: 'Consciousness', keywords: ['consciousness'] },
+    { name: 'Conditioning', keywords: ['conditioning', 'conditioned'] },
+    { name: 'Questioning', keywords: ['question', 'questioning', 'questioned'] }
+  ];
+
+  function getThemesForPost(post) {
+    const text = stripHtml(post.body).toLowerCase();
+    return THEMES.filter(theme =>
+      theme.keywords.some(kw => text.includes(kw.toLowerCase()))
+    );
+  }
+
+  function buildThemeTags(post) {
+    const themes = getThemesForPost(post);
+    if (themes.length === 0) return '';
+    const pills = themes.map(t =>
+      '<button class="theme-pill" onclick="goToTheme(\'' + t.keywords[0].replace(/'/g, "\\'") + '\')">' + t.name + '</button>'
+    ).join('');
+    return '<div class="themes-wrap">'
+      + '<div class="themes-label">Recurring in this reflection</div>'
+      + '<div class="themes-row">' + pills + '</div>'
+      + '</div>';
+  }
+
+  function goToTheme(keyword) {
+    document.getElementById('searchInput').value = keyword;
+    document.getElementById('navSearchInput').value = keyword;
+    handleSearch(keyword);
+    document.getElementById('writing').scrollIntoView({ behavior: 'smooth' });
+  }
+
   function stripHtml(html) {
     const t = document.createElement('div');
     t.innerHTML = html;
@@ -2293,6 +2351,29 @@
     ctx.font = 'italic 30px "Cormorant Garamond", serif';
     ctx.fillStyle = '#9e7a46';
     ctx.fillText('\u2014 Meera\u2019s Veda', W/2, H - 118);
+
+    // Wave/drop watermark, bottom-right corner
+    (function drawDropWatermark() {
+      const dx = W - 96, dy = H - 200, s = 1.8;
+      ctx.save();
+      ctx.globalAlpha = 0.4;
+      ctx.strokeStyle = '#8a6f3e';
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(dx + 13*s, dy + 2*s);
+      ctx.bezierCurveTo(dx + 10*s, dy + 7*s, dx + 8*s, dy + 9*s, dx + 8*s, dy + 12*s);
+      ctx.arc(dx + 13*s, dy + 12*s, 5*s, Math.PI, 0, false);
+      ctx.bezierCurveTo(dx + 18*s, dy + 9*s, dx + 16*s, dy + 7*s, dx + 13*s, dy + 2*s);
+      ctx.stroke();
+      ctx.globalAlpha = 0.3;
+      ctx.strokeStyle = '#b89968';
+      ctx.beginPath();
+      ctx.moveTo(dx + 3*s, dy + 17*s);
+      ctx.quadraticCurveTo(dx + 8*s, dy + 14.5*s, dx + 13*s, dy + 17*s);
+      ctx.quadraticCurveTo(dx + 18*s, dy + 19.5*s, dx + 23*s, dy + 17*s);
+      ctx.stroke();
+      ctx.restore();
+    })();
 
     canvas.toBlob(blob => {
       const url = URL.createObjectURL(blob);
@@ -2429,8 +2510,6 @@
     if (!REACTION_DATA[slug]) REACTION_DATA[slug] = {};
     REACTION_DATA[slug][emoji] = (REACTION_DATA[slug][emoji] || 0) + 1;
 
-    constellationBuilt = false; // rebuild next time so this reaction joins the reader's own star pattern
-
     try {
       sb.rpc('increment_reaction', { p_slug: slug, p_emoji: emoji }).then(() => {}).catch(() => {});
     } catch(e) {}
@@ -2504,19 +2583,6 @@
       + '</div>';
   }
 
-  function dividerSVG() {
-    return '<div class="illustrated-divider"><div class="id-line"></div>'
-      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 3c-4.2 2.6-6 6.2-6 9 0 5 3.6 8.3 6 9 2.4-.7 6-4 6-9 0-2.8-1.8-6.4-6-9z" opacity="0.85"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none" opacity="0.6"/></svg>'
-      + '<div class="id-line"></div></div>';
-  }
-
-  function flourishSVG() {
-    return '<div class="post-flourish"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">'
-      + '<circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/>'
-      + '<path d="M12 5v3.2M12 15.8V19M5 12h3.2M15.8 12H19M7.6 7.6l2 2M14.4 14.4l2 2M16.4 7.6l-2 2M9.6 14.4l-2 2" opacity="0.7"/>'
-      + '</svg></div>';
-  }
-
   function buildPost(p, i, featured) {
     const label = CATEGORY_LABELS[p.category] || p.category;
     const glyph = CATEGORY_GLYPHS[p.category] || '';
@@ -2540,10 +2606,10 @@
       + '</div>'
       + '<h2 class="post-title">' + title + '</h2>'
       + '<div class="post-teaser">' + teaser + '</div>'
-      + '<div class="post-full">' + dividerSVG() + body
+      + '<div class="post-full">' + body
         + '<div class="post-signature">&mdash; Meera\'s Veda</div>'
-        + flourishSVG()
         + buildReactions(slug)
+        + buildThemeTags(p)
         + buildRelated(p)
       + '</div>'
       + '<button class="post-toggle" onclick="togglePost(this)">Continue reading <span class="arrow">&#8595;</span></button>'
@@ -2742,32 +2808,6 @@
 
   let constellationBuilt = false;
 
-  // ── LIVE MOON PHASE ──
-  // Approximate lunar phase from a known new moon reference (Jan 6, 2000, 18:14 UTC).
-  // Decorative, not astronomically precise, but tracks the real sky closely enough
-  // that the Constellation's moon quietly matches tonight's actual phase.
-  function getMoonPhase(date) {
-    date = date || new Date();
-    const synodicMonth = 29.530588853;
-    const knownNewMoon = Date.UTC(2000, 0, 6, 18, 14, 0);
-    const diffDays = (date.getTime() - knownNewMoon) / 86400000;
-    let phase = (diffDays % synodicMonth) / synodicMonth;
-    if (phase < 0) phase += 1;
-    const illumFrac = (1 - Math.cos(2 * Math.PI * phase)) / 2;
-    return { phase: phase, illumFrac: illumFrac, waxing: phase < 0.5 };
-  }
-
-  function moonPhaseName(phase) {
-    if (phase < 0.03 || phase > 0.97) return 'New Moon';
-    if (phase < 0.22) return 'Waxing Crescent';
-    if (phase < 0.28) return 'First Quarter';
-    if (phase < 0.47) return 'Waxing Gibbous';
-    if (phase < 0.53) return 'Full Moon';
-    if (phase < 0.72) return 'Waning Gibbous';
-    if (phase < 0.78) return 'Last Quarter';
-    return 'Waning Crescent';
-  }
-
   function buildConstellation() {
     const svg = document.getElementById('constellationSvg');
     const W = window.innerWidth || 1000;
@@ -2788,14 +2828,7 @@
 
     let svgContent = '';
 
-    // Moon — glows with tonight's real phase, upper right of the sky
-    const moonInfo = getMoonPhase();
-    const moonCx = W * 0.80;
-    const moonCy = H * 0.13;
-    const moonR = Math.min(W, H) * 0.034;
-    const shadowOffset = moonInfo.illumFrac * moonR * 2;
-    const shadowDir = moonInfo.waxing ? 1 : -1;
-    const shadowCx = moonCx + shadowDir * shadowOffset;
+    // Moon — soft glowing crescent, upper right of the sky
     svgContent += `
       <defs>
         <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
@@ -2804,10 +2837,9 @@
           <stop offset="100%" stop-color="#f0e2c0" stop-opacity="0"/>
         </radialGradient>
       </defs>
-      <circle cx="${moonCx}" cy="${moonCy}" r="${(moonR * 2.6).toFixed(1)}" fill="url(#moonGlow)"/>
-      <circle cx="${moonCx}" cy="${moonCy}" r="${moonR.toFixed(1)}" fill="#fdf6e3" opacity="0.92"/>
-      <circle cx="${shadowCx.toFixed(1)}" cy="${moonCy.toFixed(1)}" r="${moonR.toFixed(1)}" fill="#0d0e18" opacity="0.85"/>
-      <text class="moon-phase-label" x="${moonCx.toFixed(1)}" y="${(moonCy + moonR * 2.5).toFixed(1)}" text-anchor="middle" font-size="9" fill="rgba(240,234,216,0.35)" letter-spacing="1">${moonPhaseName(moonInfo.phase).toUpperCase()}</text>
+      <circle cx="${W * 0.80}" cy="${H * 0.13}" r="${Math.min(W,H) * 0.09}" fill="url(#moonGlow)"/>
+      <circle cx="${W * 0.80}" cy="${H * 0.13}" r="${Math.min(W,H) * 0.034}" fill="#fdf6e3" opacity="0.92"/>
+      <circle cx="${W * 0.80 + Math.min(W,H)*0.012}" cy="${H * 0.13 - Math.min(W,H)*0.005}" r="${Math.min(W,H) * 0.034}" fill="#0d0e18" opacity="0.75"/>
     `;
 
     // Ambient background stars (decorative only)
@@ -2846,40 +2878,19 @@
       }
     });
 
-    // Your own star map — stars you've personally reacted to (per-device,
-    // via getMyReactions) glow brighter and trace a faint path in the
-    // order you reacted, so a personal pattern slowly emerges over time.
-    const mine = getMyReactions();
-    const mySlugs = Object.keys(mine);
-    if (mySlugs.length > 1) {
-      const myPositioned = mySlugs
-        .map(slug => positioned.find(p => slugify(p.post.title) === slug))
-        .filter(Boolean);
-      if (myPositioned.length > 1) {
-        let pathD = 'M ' + myPositioned[0].x.toFixed(1) + ' ' + myPositioned[0].y.toFixed(1) + ' ';
-        for (let i = 1; i < myPositioned.length; i++) {
-          pathD += 'L ' + myPositioned[i].x.toFixed(1) + ' ' + myPositioned[i].y.toFixed(1) + ' ';
-        }
-        svgContent += `<path class="my-pattern-path" d="${pathD}" fill="none" stroke="#e8c86a" stroke-width="1"/>`;
-      }
-    }
-
     // Star nodes
     positioned.forEach(item => {
       const slug = slugify(item.post.title);
       const reactions = REACTION_DATA[slug] || {};
       const engagement = Object.values(reactions).reduce((a, b) => a + b, 0);
-      const isMine = !!mine[slug];
-      const baseRadius = Math.min(3 + engagement * 0.4, 8);
-      const radius = isMine ? baseRadius + 1.5 : baseRadius;
+      const radius = Math.min(3 + engagement * 0.4, 8);
       const color = CATEGORY_COLORS[item.cat] || '#c9ac7a';
       const delay = (seededRandom(item.seed * 3.1) * 3.5).toFixed(2);
       const labelX = item.x + radius + 6;
       const titleEsc = item.post.title.replace(/"/g, '&quot;');
 
-      svgContent += `<g class="star-node${isMine ? ' mine' : ''}" onclick="goToPostFromConstellation('${slug}')">`
+      svgContent += `<g class="star-node" onclick="goToPostFromConstellation('${slug}')">`
         + `<circle cx="${item.x.toFixed(1)}" cy="${item.y.toFixed(1)}" r="${(radius + 10).toFixed(1)}" fill="transparent"/>`
-        + (isMine ? `<circle cx="${item.x.toFixed(1)}" cy="${item.y.toFixed(1)}" r="${(radius + 5).toFixed(1)}" fill="none" stroke="#e8c86a" stroke-width="1" opacity="0.55"/>` : '')
         + `<circle class="core" cx="${item.x.toFixed(1)}" cy="${item.y.toFixed(1)}" r="${radius.toFixed(1)}" fill="${color}" style="animation-delay:${delay}s"/>`
         + `<title>${titleEsc}</title>`
         + `</g>`
@@ -2887,14 +2898,6 @@
     });
 
     svg.innerHTML = svgContent;
-
-    // Update the hint to acknowledge a returning reader's own pattern
-    const hintEl = document.querySelector('.constellation-hint');
-    if (hintEl) {
-      hintEl.textContent = mySlugs.length > 0
-        ? 'Your stars shine brighter \u2014 tap one to open its reflection'
-        : 'Tap a star to open its reflection';
-    }
 
     // Wire hover to show adjacent label (since CSS sibling selector needs adjacency, handle via JS)
     svg.querySelectorAll('.star-node').forEach((node, i) => {
@@ -2990,20 +2993,12 @@
   const stickyNav = document.getElementById('stickyNav');
   const backToTop = document.getElementById('back-to-top');
   const progressBar = document.getElementById('progress-bar');
-  const mastheadPortrait = document.querySelector('.masthead-portrait');
-  const mastheadText = document.querySelector('.masthead-text');
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   window.addEventListener('scroll', () => {
     const scrolled = window.scrollY;
     const total = document.documentElement.scrollHeight - window.innerHeight;
     progressBar.style.width = (scrolled / total * 100) + '%';
     stickyNav.classList.toggle('visible', scrolled > 380);
     backToTop.classList.toggle('visible', scrolled > 500);
-    // Soft parallax on the hero while it's still in view
-    if (!prefersReducedMotion && mastheadPortrait && scrolled < 700) {
-      mastheadPortrait.style.transform = 'translateY(' + (scrolled * 0.12) + 'px)';
-      if (mastheadText) mastheadText.style.transform = 'translateY(' + (scrolled * 0.05) + 'px)';
-    }
   }, { passive: true });
 
   function submitReview() {
@@ -3075,7 +3070,7 @@
 
   async function loadComments() {
     const container = document.getElementById('readerComments');
-    container.innerHTML = '<div class="comments-loading">Loading reflections...</div>';
+    container.innerHTML = '<div class="comments-loading"><svg class="drop-loading" width="14" height="12" viewBox="0 0 14 12"><path d="M7 1 C5.5 3.5, 4.5 5, 4.5 6.5 A2.5 2.5 0 0 0 9.5 6.5 C9.5 5, 8.5 3.5, 7 1 Z" fill="none" stroke="currentColor" stroke-width="1"/></svg> Loading reflections...</div>';
     try {
       const { data, error } = await sb
         .from('comments')
@@ -3095,14 +3090,30 @@
       approved.forEach(c => {
         const card = document.createElement('div');
         card.className = 'review-card reader-submitted';
+        const linkedPost = c.post_slug ? POSTS.find(p => slugify(p.title) === c.post_slug) : null;
+        const accentColor = linkedPost ? (CATEGORY_COLORS[linkedPost.category] || '#b89968') : '#b89968';
+        card.style.borderLeftColor = accentColor;
+        card.style.setProperty('--card-accent', accentColor);
         const date = new Date(c.created_at).toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+        const postTag = c.post_title
+          ? '<button class="review-post-tag" onclick="goToPost(\'' + escapeHtml(c.post_slug || '') + '\')">on &ldquo;' + escapeHtml(c.post_title) + '&rdquo;</button>'
+          : '';
+        const replyHtml = c.reply_text
+          ? '<div class="review-reply">'
+              + '<div class="review-reply-mark">&#8618;</div>'
+              + '<p class="review-reply-text">' + escapeHtml(c.reply_text) + '</p>'
+              + '<div class="review-reply-signature">&mdash; Meera\'s Veda</div>'
+            + '</div>'
+          : '';
         card.innerHTML = '<span class="review-quote-mark">&ldquo;</span>'
           + '<p class="review-text">' + escapeHtml(c.text) + '</p>'
           + '<div class="review-meta">'
             + '<div class="review-dot"></div>'
             + '<span class="review-name">' + escapeHtml(c.name || 'A Reader') + '</span>'
             + '<span class="review-date">' + date + '</span>'
-          + '</div>';
+          + '</div>'
+          + postTag
+          + replyHtml;
         grid.appendChild(card);
       });
       container.innerHTML = '';
@@ -3118,6 +3129,27 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
+  }
+
+  function getCurrentPostContext() {
+    // Prefer the URL's post param first — it's the most explicit signal of
+    // which essay someone is actually reading, since the featured post can
+    // also be sitting open at the same time on the homepage.
+    const params = new URLSearchParams(window.location.search);
+    const urlSlug = params.get('post');
+    if (urlSlug) {
+      const match = POSTS.find(p => slugify(p.title) === urlSlug);
+      if (match) return { slug: urlSlug, title: match.title };
+    }
+    const openArticle = document.querySelector('.post.open, .post-featured.open');
+    if (openArticle) {
+      const titleEl = openArticle.querySelector('.post-title');
+      return {
+        slug: openArticle.dataset.slug || null,
+        title: titleEl ? titleEl.textContent : null
+      };
+    }
+    return { slug: null, title: null };
   }
 
   async function submitComment() {
@@ -3136,14 +3168,24 @@
     btn.disabled = true;
     btn.textContent = 'Sending...';
 
+    const postContext = getCurrentPostContext();
+
     try {
       const { error } = await sb
         .from('comments')
-        .insert({ name: name || '', text: text, approved: false });
+        .insert({
+          name: name || '',
+          text: text,
+          approved: false,
+          post_slug: postContext.slug,
+          post_title: postContext.title
+        });
 
       if (error) throw error;
 
-      status.innerHTML = 'Thank you. Your reflection has been received.<br>It will appear here once reviewed.';
+      status.innerHTML = postContext.title
+        ? 'Thank you. Your reflection on <em>\u201c' + postContext.title + '\u201d</em> has been received.<br>It will appear here once reviewed.'
+        : 'Thank you. Your reflection has been received.<br>It will appear here once reviewed.';
       status.classList.add('visible');
       document.getElementById('cfName').value = '';
       document.getElementById('cfText').value = '';

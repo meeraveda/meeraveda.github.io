@@ -116,6 +116,21 @@
     background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
     padding: 20px 22px; margin-bottom: 14px;
   }
+  .comment-post {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--gold-deep);
+    font-style: italic;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .comment-post-unknown {
+    color: var(--muted);
+    font-style: normal;
+    opacity: 0.7;
+  }
   .comment-text { font-size: 16px; line-height: 1.6; color: var(--ink); margin-bottom: 12px; white-space: pre-wrap; }
   .comment-meta { display:flex; justify-content:space-between; align-items:center; }
   .comment-name { font-size: 13px; color: var(--gold-deep); font-style: italic; }
@@ -127,6 +142,52 @@
   }
   .btn-approve { background: #4a7a5a !important; color: #fff !important; border-color: #4a7a5a !important; }
   .btn-delete { color: #b0433a; }
+  .reply-box {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line);
+  }
+  .reply-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 8px;
+  }
+  .reply-textarea {
+    width: 100%;
+    min-height: 60px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink);
+    background: #fff;
+    resize: vertical;
+  }
+  .reply-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .btn-reply {
+    padding: 7px 16px; border-radius: 4px; border: none;
+    background: var(--dark); color: var(--paper);
+    font-size: 13px; cursor: pointer;
+  }
+  .btn-remove-reply {
+    padding: 7px 16px; border-radius: 4px; border: 1px solid var(--line);
+    background: #fff; color: #b0433a;
+    font-size: 13px; cursor: pointer;
+  }
+  .reply-status {
+    font-size: 12px; color: var(--muted); font-style: italic;
+  }
+  .reply-status.error { color: #b0433a; }
   .empty { text-align:center; color: var(--muted); font-style: italic; padding: 40px 0; }
   .loading { text-align:center; color: var(--muted); padding: 40px 0; }
 </style>
@@ -268,13 +329,27 @@
         ? `<button class="btn-approve" onclick="approveComment(${c.id})">Approve</button>
            <button class="btn-delete" onclick="deleteComment(${c.id})">Delete</button>`
         : `<button class="btn-delete" onclick="deleteComment(${c.id})">Remove</button>`;
+      const postLabel = c.post_title
+        ? `<div class="comment-post">On: ${escapeHtml(c.post_title)}</div>`
+        : `<div class="comment-post comment-post-unknown">Post not recorded (left before linking was added)</div>`;
+      const existingReply = c.reply_text || '';
       return `<div class="comment-card">
+        ${postLabel}
         <div class="comment-text">${escapeHtml(c.text)}</div>
         <div class="comment-meta">
           <span class="comment-name">${escapeHtml(c.name || 'Anonymous')}</span>
           <span class="comment-date">${date}</span>
         </div>
         <div class="comment-actions">${actions}</div>
+        <div class="reply-box">
+          <div class="reply-label">${existingReply ? 'Your reply' : "Reply as Meera's Veda"}</div>
+          <textarea class="reply-textarea" id="reply-${c.id}" placeholder="Write a short reply...">${escapeHtml(existingReply)}</textarea>
+          <div class="reply-actions">
+            <button class="btn-reply" onclick="saveReply(${c.id})">${existingReply ? 'Update Reply' : 'Post Reply'}</button>
+            ${existingReply ? `<button class="btn-remove-reply" onclick="removeReply(${c.id})">Remove Reply</button>` : ''}
+            <span class="reply-status" id="reply-status-${c.id}"></span>
+          </div>
+        </div>
       </div>`;
     }).join('');
   }
@@ -332,6 +407,38 @@
       await loadAll();
     } catch (e) {
       alert('Could not delete. Try again.');
+    }
+  }
+
+  async function saveReply(id) {
+    const textarea = document.getElementById('reply-' + id);
+    const status = document.getElementById('reply-status-' + id);
+    const text = textarea.value.trim();
+    if (!text) {
+      status.textContent = 'Write something first.';
+      status.className = 'reply-status error';
+      return;
+    }
+    status.textContent = 'Saving...';
+    status.className = 'reply-status';
+    try {
+      const { error } = await sb.from('comments').update({ reply_text: text }).eq('id', id);
+      if (error) throw error;
+      await loadAll();
+    } catch (e) {
+      status.textContent = 'Could not save. Try again.';
+      status.className = 'reply-status error';
+    }
+  }
+
+  async function removeReply(id) {
+    if (!confirm('Remove this reply?')) return;
+    try {
+      const { error } = await sb.from('comments').update({ reply_text: null }).eq('id', id);
+      if (error) throw error;
+      await loadAll();
+    } catch (e) {
+      alert('Could not remove reply. Try again.');
     }
   }
 </script>
