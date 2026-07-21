@@ -46,6 +46,28 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
 
+  /* ── VISUAL POLISH: text selection + scrollbar ── */
+  ::selection {
+    background: rgba(184, 153, 104, 0.35);
+    color: var(--ink);
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 10px;
+    opacity: 0.5;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gold-deep); }
+  html { scrollbar-width: thin; scrollbar-color: var(--gold) var(--bg); }
+
+  body.night-mode ::selection {
+    background: rgba(201, 168, 112, 0.3);
+    color: var(--ink);
+  }
+  body.night-mode ::-webkit-scrollbar-track { background: var(--bg); }
+  body.night-mode ::-webkit-scrollbar-thumb { background: var(--gold); }
+
   /* ── PAGE FADE IN ── */
   body {
     background: var(--bg);
@@ -502,6 +524,32 @@
     border-color: var(--dark);
     color: var(--paper);
   }
+  .reaction-btn.pulse {
+    animation: reactionPulse 0.4s ease;
+  }
+  @keyframes reactionPulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.18); }
+    100% { transform: scale(1); }
+  }
+  .reaction-burst-particle {
+    position: fixed;
+    z-index: 3000;
+    font-size: 15px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    animation: reactionBurst 0.65s ease-out forwards;
+  }
+  @keyframes reactionBurst {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) translate(0, 0) scale(0.6);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1.1);
+    }
+  }
   .reaction-btn:disabled {
     cursor: default;
     opacity: 0.7;
@@ -873,6 +921,19 @@
     animation: fadeUp 0.5s ease both;
     border-radius: 4px;
   }
+  .post-corner {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .post-corner-tl { top: 8px; left: -4px; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+  .post-corner-br { bottom: 8px; right: -4px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+  .post:hover .post-corner, .post-featured .post-corner { opacity: 0.6; }
+  .post-featured .post-corner-tl { border-color: var(--gold); left: 6px; }
+  .post-featured .post-corner-br { border-color: var(--gold); right: 6px; }
   .post:first-child { border-top: 1px solid var(--line); }
   .post:hover {
     background: rgba(255,255,255,0.55);
@@ -1959,6 +2020,30 @@
 <script>
   const POSTS = [
     {
+      category: 'bookreviews',
+      title: 'Who Will Cry When You Die',
+      date: '2026-07-19',
+      body: '<p>Since I had finished every Catherine Cookson novel I didn\'t get addicted to any other author till I read Paulo Coelho  and Robin Sharma , and got whatever book of theirs I could get my hands on, I found myself searching for more books by them… their  writing resonated with my being </p><p>I had unknowingly crossed a bridge. Until then, I had mostly been reading stories about other people\'s lives. Robin Sharma made me look at my own.</p><p>The first book I bought of his was <em>Who Will Cry When You Die?</em> The title alone stopped me. It wasn\'t asking how much money I would leave behind.Or what position I would retire from… It asked something infinitely more uncomfortable.</p><p>Who will genuinely mourn because my life made theirs better? </p><p>Exact same words my parents would say ..</p><p>Unlike <em>The Monk Who Sold His Ferrari</em>, which transformed the way I viewed success, <em>Who Will Cry When You Die?</em> transformed the way I viewed everyday living…</p><p>The book isn\'t one long story. It\'s a collection of short reflections…..small lessons that can be read in a few minutes, yet linger in your mind for years. It felt as though Robin Sharma was gently reminding us that an extraordinary life isn\'t built through extraordinary moments. It\'s built through ordinary days lived consciously…..</p><p>One lesson that struck me deeply was his view of time. If I remember correctly, he repeatedly reminds us that time is our greatest asset ….not money. Money lost can often be earned again… Time never returns.</p><p>Every morning we are given another twenty-four hours, and every evening we have spent them forever. When I was younger , like most young people, I assumed I had endless tomorrows.</p><p>Today, in my 30\'s, those words carry even greater weight. I understand now that life isn\'t measured in years. It\'s measured in moments we were awake enough to notice…</p><p>The book also spoke about protecting our mornings. Creating quiet rituals….Reading….Reflecting….Writing….Exercising.</p><p>Starting the day intentionally instead of allowing the world to dictate our mood. I wake before dawn…..I enjoy silence….I read…I write. Not because someone told me to. But because, somewhere along the journey, those ideas quietly became part of who I am. This book validated that . </p><p>Another lesson was about small daily improvements. Robin Sharma never suggested changing your life overnight.</p><p>He believed in tiny habits repeated consistently…One extra page….One thoughtful conversation.One act of kindness….One hour invested in learning….One less complaint.</p><p>It reminded me that greatness isn\'t dramatic….It\'s cumulative. That philosophy has been innately me , reading this only validated me for me yet again  .Whether I was building a business, designing a training programme or simply trying to become a better human being, I realised that lasting success rarely arrives in giant leaps.</p><p>It comes from showing up every single day. The book also challenged the idea that being busy is the same as being productive.That was another awakening for me. This book redefined the word busy , …I will stop using the word busy . I will consciously try to never use it . ( I\'ll be mindful of this )</p><p>Our society often celebrates people who are constantly rushing….But Robin Sharma invited us to ask a different question. Am I busy doing what actually matters?</p><p>There is a profound difference…One fills a calendar. The other fills a life… I decided that I want to fill life . He also wrote about leaving people better than we found them… this became my mission .</p><p>Being generous with encouragement… and I diligently have begun practising this mindfully Listening more than speaking… Protecting my character more carefully than my reputation,,, this was too profound and woke me up to be unapologetically me .</p><p>Those lessons resonate even more with me t… Titles impress people for a while..Character stays with them long after they have forgotten what you did for a living. This was anchored as it made too much sense .. </p><p>Perhaps the greatest gift this book gave me was helping me understand that life is happening now. …Not after the next promotion…..Not after retirement.Not after the children grow up….Not after the business becomes successful.</p><p>Now….Today is life. .. I am going to be more intentional  about the way I live. I stop to admire trees….I travel slowly absorbing everything in… I enjoy my morning coffee without rushing through it…… I choose conversations over arguments , its been my nature anyways , just going to be more mindful hence ..</p><p>Why I no longer believe success is something waiting at the finish line. It is found in the way we spend an ordinary morning…</p><p>Robin Sharma never really taught me how to become successful.He taught me something far more valuable.How not to reach the end of my life and discover that, in the pursuit of making a living, I had forgotten to make a life… I am making my life , mostly I am grateful that I can impart these precious knowledge to my little boy who depends on his mother to give him the right direction in life …  abundant in every area of his life … not just money and fame ….</p><p>For that lesson alone, <em>Who Will Cry When You Die?</em> became far more than a book.It became a quiet companion that whispers the same question whenever life becomes too busy:</p><p>If today were my last ordinary day, would I be proud of the way I chose to spend it?</p>'
+    },
+    {
+      category: 'bookreviews',
+      title: 'Quantum Healing (2009)',
+      date: '2026-07-19',
+      body: '<p>In 2005, another door quietly opened.</p><p>This one led me to Deepak Chopra.Ironically, our paths had crossed years earlier without me even noticing.. Back in 1997, my cousin Nesan had bought me a beautiful book of poems co-authored by Deepak Chopra. I remember appreciating the words, but not the author. At that stage of my life, my literary world revolved around stories, mythology , nutrition , and my fascination revolved around Michael Jackson. Deepak Chopra was simply another name on a cover. </p><p>During one of our training sessions, Major Vas introduced the class to Deepak Chopra\'s Quantum Healing. Ironically, I already owned the book. My dad had given it to me some time earlier, and it had been sitting quietly on the shelves of his home library. I remember flipping through a few pages back then, finding it rather dull, and putting it straight back. I simply wasn\'t ready for it. Sometimes, it isn\'t the book that changes ….it is the reader.</p><p>Life has a curious way of reintroducing people when we are finally ready to hear what they have to say… Eight years later, I was no longer the same person. I had become a certified hypnotherapist and was training to become an NLP Practitioner under Major Vas. </p><p>The timing couldn\'t have been more perfect. If Robin Sharma had taught me how to think differently about life, Deepak Chopra challenged me to think differently about the human mind and body. At the time, I was already immersed in the subconscious….</p><p>As a hypnotherapist, I had seen firsthand how deeply held beliefs could influence behaviour. People weren\'t always limited by reality. More often, they were limited by the stories they had repeated to themselves for years.</p><p><em>"I am not good enough.".."I always fail."…"I don\'t deserve happiness."…"I\'m just this kind of person."</em> Those weren\'t facts… They were programmes…</p><p>And hypnosis taught me that programmes could be rewritten. Then came <em>Quantum Healing</em>, and it seemed to offer another piece of the puzzle.</p><p>The central idea of the book was both simple and revolutionary: the mind and body are not separate systems ,they are in constant conversation.</p><p>Every thought. …Every emotion….Every belief. Every perception…..They don\'t simply stay in our heads. ..They ripple through our biology.</p><p>Deepak Chopra invited readers to see illness differently. ..Not as punishment. Not always as bad luck….But as something that could also reflect deeper imbalances in the way we lived, thought, and experienced the world.</p><p>That perspective fascinated me…Not because I believed positive thinking could cure every disease…I didn\'t…Even then, I understood that medicine has an essential place.</p><p>But what captivated me was this possibility:..What if healing wasn\'t only about treating the body?What if healing also meant changing the environment in which the body lives…the mind?</p><p>That aligned beautifully with everything I was learning through hypnosis.During hypnosis, the conscious mind relaxes…. The analytical chatter quietens…..The subconscious becomes more receptive… It is in that state that old emotional associations can begin to shift. Fear can soften. Confidence can grow. Limiting beliefs can be challenged. The stories we have rehearsed for years can finally be questioned.</p><p>Reading <em>Quantum Healing</em> made me wonder whether those inner changes might also influence the body in ways we were only beginning to understand. It wasn\'t the word "quantum" that intrigued me. It was the possibility that awareness itself could become medicine.</p><p>Deepak Chopra also spoke about the body as an intelligent, constantly renewing organism. Our cells die….New ones are born….Our bodies are continually rebuilding themselves.</p><p>If our biology is always changing, then perhaps we are not nearly as fixed as we imagine….That idea gave me enormous hope. It suggested that change was not an exception to life…..Change was life.</p><p>As someone learning Neuro-Linguistic Programming at the time, this resonated deeply. NLP was built on the belief that our internal maps are not reality.</p><p>They are simply interpretations….Change the interpretation….Change the emotional response. Change the behaviour….Hypnosis explored the subconscious.</p><p>NLP explored the language of the mind. <em>Quantum Healing</em> invited me to consider how those inner patterns might also echo through the body….Suddenly, these disciplines no longer felt separate.They became different lenses looking at the same human experience.</p><p>Robin Sharma had taught me to value time…Hypnosis taught me to value the subconscious.NLP taught me to value language…Deepak Chopra taught me to value awareness. Looking back, I don\'t think <em>Quantum Healing</em> gave me all the answers.</p><p>In fact, some of its broader claims remain debated, and not every idea has been supported by scientific evidence…..But that wasn\'t its greatest gift to me.Its greatest gift was making me ask better questions. How much of who we are is habit? How much is memory? How much is belief?</p><p>And if our minds help shape the way we experience life, then perhaps one of the most compassionate things we can do for ourselves and for others ,is to become conscious of the stories we are living. Because healing, I began to realise, isn\'t always about becoming someone new. Sometimes, it\'s simply about remembering who we were before fear taught us otherwise……</p>'
+    },
+    {
+      category: 'bookreviews',
+      title: 'The Saint, the Surfer, and the CEO (2007)',
+      date: '2026-07-19',
+      body: '<p>By the time I picked up my third Robin Sharma book, I had already come to trust him.Not because he gave me answers. But because he asked the kinds of questions that quietly stayed with me long after I had closed the book…</p><p>The book was <em>The Saint, the Surfer, and the CEO</em>. Like his earlier books, it wasn\'t really about the title. It wasn\'t about a saint…..It wasn\'t about surfing. And it certainly wasn\'t about becoming a CEO. It was about living a complete life….</p><p>The story follows Jack Valentine, a man who appears successful on the outside but feels disconnected on the inside. After the death of his father, he embarks on a journey to meet three remarkable mentors , a saint, a surfer and a CEO. Each one teaches him a different dimension of what it means to live well….</p><p>As I read it, I realised that Robin Sharma wasn\'t asking us to choose between success and happiness….He was asking us to stop believing they were enemies….The saint represented the inner world….He reminded me that before we try to change our circumstances, we must first understand ourselves…</p><p>That happiness isn\'t something waiting at the end of a goal…It is a way of travelling.He spoke about forgiveness, gratitude, stillness and purpose…Those chapters felt less like instructions and more like gentle reminders of truths we already know but often forget.</p><p>Then came the surfer…At first, I wondered what surfing had to do with life.Then it became obvious….A surfer doesn\'t control the ocean.</p><p>He learns to move with it…That lesson stayed with me and so did my way of speaking … go with the flow I would say and began practicing my talk  . Not like a dead fish would but like a surfer did …</p><p>Life doesn\'t ask for control…..It asks for adaptability…There will always be waves we didn\'t expect. Loss….Failure….Heartbreak….Illness….Change…</p><p>The question isn\'t whether they will come….The question is whether we will learn to ride them without losing ourselves….That lesson has become increasingly meaningful as I\'ve grown older…The more I tried to control everything, the more exhausted I became…</p><p>The more I learned to accept uncertainty, the more peaceful life became….Finally came the CEO.</p><p>Robin Sharma\'s CEO wasn\'t simply a business leader.He was someone who led with integrity.Someone who understood that success without character is ultimately failure in disguise.</p><p>That resonated deeply with me and reminded me of my father. He is successful most of all he had character . A character that everyone who passed him would love .</p><p>Over the years, I have met many successful people…Some had wealth. Some had influence….Some had impressive titles…</p><p>But not all of them had peace….Not all of them had kindness…Not all of them had families who genuinely enjoyed their company. That book quietly changed the way I defined leadership….Leadership wasn\'t about authority…</p><p>It was about responsibility…It wasn\'t about being the smartest person in the room. It was about helping others become their best… As I reflect on the book today, I realise it was introducing me to something I would keep….Balance.</p><p>Not perfect balance ….that probably doesn\'t exist ,but intentional balance. To care for my mind as much as my career….To nurture my relationships as carefully as my ambitions.To remember that my health is not separate from my success…To never become so consumed by building a business that I forget to build a life.</p><p>Looking back, I can see how Robin Sharma\'s three books arrived exactly when I needed them.<em>The Monk Who Sold His Ferrari</em> challenged my definition of success.<em>Who Will Cry When You Die?</em> taught me that ordinary days deserve extraordinary attention.</p><p><em>The Saint, the Surfer, and the CEO</em> gently wove those lessons together and showed me that a meaningful life is never built on one dimension alone.It is built by nurturing the soul of the saint, the resilience of the surfer, and the integrity of the CEO.</p><p>Perhaps that is why, I don\'t aspire merely to be successful…I aspire to remain peaceful while being successful.To remain curious while becoming wiser…To remain kind while becoming stronger…</p><p>Because if success costs me my humanity, then it has cost me far too much… What awaits me tomorrow I don\'t know … what I am becoming now is preparing me , I so believe ..</p>'
+    },
+    {
+      category: 'bookreviews',
+      title: 'The Monk Who Sold His Ferrari',
+      date: '2026-07-19',
+      body: '<p>In 2005, my friend Charu handed me a book and casually said, "You should read this."….</p><p>It was <em>The Monk Who Sold His Ferrari</em> by Robin Sharma. She even gave me her own copy.</p><p>By then, I had already read countless books. Fiction. Philosophy. Psychology. Biographies. Spirituality. Business. Reading wasn\'t new to me. But every once in a while, a book doesn\'t just give you information….</p><p>It rearranges you. This was one of those books. Until then, like many of us, I had quietly absorbed society\'s definition of success. Work harder. Earn more. Build more. Achieve more. Keep climbing. …Rest later. Happiness will eventually catch up. That book asked a question I had never truly considered:</p><p>What if you\'ve spent your whole life climbing the wrong mountain?</p><p>That question stayed with me.The story follows Julian Mantle, a celebrated lawyer whose entire identity is built on achievement. Prestige. Wealth. A Ferrari. Expensive suits. A reputation others admired. And then, one ordinary day, his body refused to cooperate.</p><p>He collapsed. …Not because he lacked intelligence…Not because he lacked ambition.But because he had mistaken external success for internal fulfilment.When I first read those pages, something shifted inside me…I wasn\'t dreaming of Ferraris.</p><p>But I understood the trap….The trap isn\'t the car. It\'s believing that "more" is always waiting just beyond the next achievement…One more promotion….One more client….One more project….One more year of sacrificing today for a tomorrow that is never guaranteed…The book wasn\'t asking us to reject ambition.</p><p>It was asking us to redefine it…It taught me that wealth isn\'t measured only by what sits in your bank account. Real wealth is waking up with peace….</p><p>Having a healthy body that carries you through life…Having relationships that feel safe rather than transactional.Having time to sit with your thoughts. Being able to watch a sunrise without feeling guilty that you\'re not answering emails. Being present enough to notice the people you love growing older…</p><p>Those ideas quietly followed me through . I realise why they resonated so deeply with what I was taught at home.</p><p> I don\'t admire people simply because they are successful….I admire people who remain kind despite success.People whose families still enjoy being around them…People who have protected their integrity while building their careers….People who know when enough is enough…</p><p>One lesson from the book became impossible for me to ignore:</p><p>Master your mind before you try to master the world.</p><p>The world constantly whispers that our value lies in productivity….Produce.</p><p>Perform….Compete.,,,,Accumulate.  But our minds quietly ask different questions.</p><p>Am I at peace?   Am I becoming a better human being?   Do I still have wonder?</p><p>Have I become so busy making a living that I\'ve forgotten how to live?</p><p>These  questions mattered . Work has become something I do.</p><p>Not who I am. …Because careers end. …Companies change…..Titles disappear.</p><p>Health can change overnight….The only person who walks beside us from our first breath to our last is ourselves…. Just me for me and no one else cause even my parents will be no more one day . </p><p>Perhaps that was the greatest lesson the book gave me. Protect your inner world as fiercely as you protect your career.  Invest in your body it reminded me .Train your mind…</p><p>Guard your peace….Be generous. …Learn continuously….Laugh often….Love deeply.</p><p>Leave space in your life for silence. And remember that success means very little if, after all the applause has faded, you don\'t enjoy the person waiting for you in the mirror. ( this was a punch )</p><p>Looking back, I often smile at Charu for insisting I read that book.She probably had no idea she wasn\'t just lending me a novel…. I also wondered if it changed her thinking like it did mine . She was handing me a different definition of wealth.</p><p>One that, I will take with me forever ,  feels richer than any Ferrari ever could….</p>'
+    },
+    {
       category: 'spirituality',
       title: 'Perhaps We Never Return',
       date: '2026-07-16',
@@ -2504,6 +2589,28 @@
     bar.querySelectorAll('.reaction-btn').forEach(b => b.disabled = true);
     btn.classList.add('selected');
 
+    // Burst animation — a quick ring of small copies of the emoji
+    // radiating outward from the tapped button
+    const emojiSpan = btn.querySelector('.reaction-emoji');
+    if (emojiSpan) {
+      const rect = btn.getBoundingClientRect();
+      const burstCount = 6;
+      for (let i = 0; i < burstCount; i++) {
+        const particle = document.createElement('span');
+        particle.className = 'reaction-burst-particle';
+        particle.textContent = emoji;
+        particle.style.left = (rect.left + rect.width / 2) + 'px';
+        particle.style.top = (rect.top + rect.height / 2) + 'px';
+        const angle = (i / burstCount) * Math.PI * 2;
+        particle.style.setProperty('--tx', Math.cos(angle) * 42 + 'px');
+        particle.style.setProperty('--ty', Math.sin(angle) * 42 + 'px');
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 700);
+      }
+      btn.classList.add('pulse');
+      setTimeout(() => btn.classList.remove('pulse'), 400);
+    }
+
     mine[slug] = emoji;
     try { localStorage.setItem('mv-reactions', JSON.stringify(mine)); } catch(e) {}
 
@@ -2597,6 +2704,8 @@
       ? '<span class="post-tag post-tag-secondary">' + p.secondaryTag + '</span>'
       : '';
     return '<article class="' + cls + '" data-cat="' + p.category + '" data-slug="' + slug + '" style="animation-delay:' + delay + 's">'
+      + '<span class="post-corner post-corner-tl"></span>'
+      + '<span class="post-corner post-corner-br"></span>'
       + '<div class="post-meta">'
         + '<span class="post-tag"><span class="cat-glyph">' + glyph + '</span> ' + label + '</span>'
         + secondaryTag
