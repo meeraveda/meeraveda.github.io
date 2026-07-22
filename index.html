@@ -548,6 +548,98 @@
     color: var(--dark);
   }
 
+  .future-note-wrap {
+    margin-top: 36px;
+    padding: 22px 24px;
+    background: rgba(184, 153, 104, 0.05);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+  }
+  .post-featured .future-note-wrap {
+    background: rgba(245, 234, 216, 0.04);
+    border-left-color: rgba(245, 234, 216, 0.25);
+  }
+  .future-note-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    opacity: 0.85;
+    margin-bottom: 10px;
+  }
+  .post-featured .future-note-label { color: rgba(245, 234, 216, 0.5); }
+  .future-note-privacy {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--muted);
+    opacity: 0.75;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .post-featured .future-note-privacy { color: rgba(245, 234, 216, 0.4); }
+  .future-note-textarea {
+    width: 100%;
+    min-height: 56px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    resize: none;
+    outline: none;
+  }
+  .post-featured .future-note-textarea { color: rgba(245, 234, 216, 0.75); }
+  .future-note-textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.65;
+  }
+  .future-note-status {
+    height: 16px;
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--gold-deep);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .future-note-status.visible { opacity: 0.7; }
+  .future-note-existing-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    opacity: 0.8;
+    margin-bottom: 10px;
+  }
+  .future-note-existing-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .post-featured .future-note-existing-text { color: rgba(245, 234, 216, 0.8); }
+  .future-note-edit-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    cursor: pointer;
+    text-decoration: underline;
+    opacity: 0.75;
+  }
+
   .reactions-wrap {
     margin-top: 34px;
     padding-top: 24px;
@@ -621,6 +713,22 @@
   .reaction-btn:disabled {
     cursor: default;
     opacity: 0.7;
+  }
+  .falling-petal {
+    position: fixed;
+    z-index: 3000;
+    width: 8px;
+    height: 10px;
+    background: linear-gradient(135deg, #d98a9e, #b85c7e);
+    border-radius: 60% 0 60% 0;
+    pointer-events: none;
+    opacity: 0;
+    animation: petalFall var(--fall-duration, 2s) ease-in var(--fall-delay, 0s) forwards;
+  }
+  @keyframes petalFall {
+    0% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+    10% { opacity: 0.9; }
+    100% { opacity: 0; transform: translate(var(--sway), 120px) rotate(200deg); }
   }
   .post-featured .reaction-btn {
     background: rgba(245,234,216,0.06);
@@ -1189,6 +1297,14 @@
     display: inline-block;
     border-bottom: 2px solid transparent;
     padding-bottom: 4px;
+  }
+  .read-mark {
+    display: inline-block;
+    margin-left: 9px;
+    font-size: 14px;
+    color: var(--healing);
+    opacity: 0.6;
+    vertical-align: middle;
   }
   .post:hover .post-title { color: var(--gold-deep); border-bottom-color: currentColor; opacity: 0.9; }
   .post[data-cat="healing"] .post-title:hover        { border-bottom-color: var(--healing); }
@@ -2636,6 +2752,93 @@
   const REACTION_LABELS = { '\u2764\ufe0f': 'Loved this', '\ud83d\ude4f': 'Grateful', '\u2728': 'Inspired', '\ud83d\udcad': 'Relatable' };
   let REACTION_DATA = {};
 
+  // ── A NOTE TO YOUR FUTURE SELF ──
+  // Entirely private, stored only on this device, never sent anywhere.
+  // Not visible to Meera, not visible to anyone but the person who wrote it.
+  function getFutureNotes() {
+    try { return JSON.parse(localStorage.getItem('mv-future-notes')) || {}; }
+    catch(e) { return {}; }
+  }
+
+  function saveFutureNote(slug, text) {
+    const notes = getFutureNotes();
+    if (text && text.trim()) {
+      notes[slug] = { text: text.trim(), date: new Date().toISOString() };
+    } else {
+      delete notes[slug];
+    }
+    try { localStorage.setItem('mv-future-notes', JSON.stringify(notes)); } catch(e) {}
+  }
+
+  function timeSince(iso) {
+    const diff = Date.now() - new Date(iso).getTime();
+    const days = Math.floor(diff / 86400000);
+    if (days < 1) return 'earlier today';
+    if (days === 1) return 'yesterday';
+    if (days < 30) return days + ' days ago';
+    const months = Math.floor(days / 30);
+    if (months < 12) return months === 1 ? 'a month ago' : months + ' months ago';
+    const years = Math.floor(months / 12);
+    return years === 1 ? 'a year ago' : years + ' years ago';
+  }
+
+  function buildFutureSelfNote(slug) {
+    const notes = getFutureNotes();
+    const existing = notes[slug];
+    const existingBlock = existing
+      ? '<div class="future-note-existing" id="future-existing-' + slug + '">'
+          + '<div class="future-note-existing-label">You wrote this to yourself, ' + timeSince(existing.date) + '</div>'
+          + '<p class="future-note-existing-text">' + escapeHtml(existing.text) + '</p>'
+          + '<button class="future-note-edit-link" onclick="toggleFutureNoteEditor(\'' + slug + '\')">Edit this note</button>'
+          + '<div class="future-note-privacy">This stays with you alone &mdash; not even Meera can see it. Your own reflection, to revisit whenever you\'d like.</div>'
+        + '</div>'
+      : '';
+    const editorHidden = existing ? ' style="display:none;"' : '';
+    return '<div class="future-note-wrap">'
+      + existingBlock
+      + '<div class="future-note-editor" id="future-editor-' + slug + '"' + editorHidden + '>'
+        + '<div class="future-note-label">' + (existing ? '' : 'A note to your future self') + '</div>'
+        + (existing ? '' : '<div class="future-note-privacy">This stays with you alone. Not saved anywhere but here &mdash; not even Meera can read it. Just your own reflection, to come back and revisit whenever you\'d like.</div>')
+        + '<textarea class="future-note-textarea" id="future-text-' + slug + '" placeholder="Something you want to remember about how you feel right now, reading this...">' + (existing ? escapeHtml(existing.text) : '') + '</textarea>'
+        + '<div class="future-note-status" id="future-status-' + slug + '"></div>'
+      + '</div>'
+    + '</div>';
+  }
+
+  function toggleFutureNoteEditor(slug) {
+    const existingEl = document.getElementById('future-existing-' + slug);
+    const editorEl = document.getElementById('future-editor-' + slug);
+    if (existingEl) existingEl.style.display = 'none';
+    if (editorEl) {
+      editorEl.style.display = 'block';
+      const ta = document.getElementById('future-text-' + slug);
+      if (ta) ta.focus();
+    }
+  }
+
+  function initFutureNoteAutosave(article) {
+    if (!article) return;
+    article.querySelectorAll('.future-note-textarea').forEach(ta => {
+      if (ta.dataset.autosaveInit) return;
+      ta.dataset.autosaveInit = '1';
+      const slug = ta.id.replace('future-text-', '');
+      let timer = null;
+      ta.addEventListener('input', () => {
+        clearTimeout(timer);
+        const status = document.getElementById('future-status-' + slug);
+        if (status) { status.textContent = ''; }
+        timer = setTimeout(() => {
+          saveFutureNote(slug, ta.value);
+          if (status) {
+            status.textContent = 'kept, quietly';
+            status.classList.add('visible');
+            setTimeout(() => status.classList.remove('visible'), 2200);
+          }
+        }, 1200);
+      });
+    });
+  }
+
   function buildReactions(slug) {
     const buttons = REACTION_EMOJIS.map(emoji => {
       return '<button class="reaction-btn" data-emoji="' + emoji + '" onclick="reactToPost(\'' + slug + '\', \'' + emoji + '\', this)" title="' + REACTION_LABELS[emoji] + '">'
@@ -2741,6 +2944,22 @@
       }
       btn.classList.add('pulse');
       setTimeout(() => btn.classList.remove('pulse'), 400);
+
+      // A little extra, just for love — a few petals drift down
+      if (emoji === '\u2764\ufe0f') {
+        const petalCount = 5;
+        for (let i = 0; i < petalCount; i++) {
+          const petal = document.createElement('span');
+          petal.className = 'falling-petal';
+          petal.style.left = (rect.left + rect.width / 2 + (Math.random() * 50 - 25)) + 'px';
+          petal.style.top = (rect.top - 6) + 'px';
+          petal.style.setProperty('--sway', (Math.random() * 36 - 18) + 'px');
+          petal.style.setProperty('--fall-delay', (i * 0.08) + 's');
+          petal.style.setProperty('--fall-duration', (1.6 + Math.random() * 0.6) + 's');
+          document.body.appendChild(petal);
+          setTimeout(() => petal.remove(), 2500);
+        }
+      }
     }
 
     mine[slug] = emoji;
@@ -2822,6 +3041,23 @@
       + '</div>';
   }
 
+  function hasBeenRead(slug) {
+    try {
+      const history = JSON.parse(localStorage.getItem('mv-read-history')) || [];
+      return history.includes(slug);
+    } catch(e) { return false; }
+  }
+
+  function markAsRead(slug) {
+    try {
+      let history = JSON.parse(localStorage.getItem('mv-read-history')) || [];
+      if (!history.includes(slug)) {
+        history.push(slug);
+        localStorage.setItem('mv-read-history', JSON.stringify(history));
+      }
+    } catch(e) {}
+  }
+
   function buildPost(p, i, featured) {
     const label = CATEGORY_LABELS[p.category] || p.category;
     const glyph = CATEGORY_GLYPHS[p.category] || '';
@@ -2845,10 +3081,11 @@
         + '<span class="post-read-time">' + readTime(p.body) + '</span>'
         + '<button class="post-share" onclick="copyPostLink(\'' + slug + '\', this)" title="Copy link to this post">&#128279;</button>'
       + '</div>'
-      + '<h2 class="post-title">' + title + '</h2>'
+      + '<h2 class="post-title">' + title + (hasBeenRead(slug) ? '<span class="read-mark" title="Already read">&#10003;</span>' : '') + '</h2>'
       + '<div class="post-teaser">' + teaser + '</div>'
       + '<div class="post-full">' + body
         + '<div class="post-signature">&mdash; Meera\'s Veda</div>'
+        + buildFutureSelfNote(slug)
         + buildReactions(slug)
         + buildThemeTags(p)
         + buildRelated(p)
@@ -2975,9 +3212,11 @@
       const titleEl = article.querySelector('.post-title');
       if (titleEl) {
         rememberLastRead(slug, titleEl.textContent);
+        markAsRead(slug);
         trackView(slug, titleEl.textContent);
       }
       initInkReveal(article);
+      initFutureNoteAutosave(article);
     } else {
       url.searchParams.delete('post');
     }
@@ -3024,9 +3263,11 @@
       const titleEl = article.querySelector('.post-title');
       if (titleEl) {
         rememberLastRead(slug, titleEl.textContent);
+        markAsRead(slug);
         trackView(slug, titleEl.textContent);
       }
       initInkReveal(article);
+      initFutureNoteAutosave(article);
     }, 60);
   }
 
